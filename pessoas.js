@@ -25,7 +25,7 @@ function pessoasCorpo() {
   const porCat = k => anos.map(a => unicas.filter(x => String(x.o[0]) === a && x.p.c === k).length);
   const tiles = [
     [String(dis.length), "discentes em curso", `incluindo ${novos.length} ingressantes de 2026/2`],
-    [String(egr.length), "mestres titulados", "de 2021 a 2025"],
+    [String(egr.length), "mestres titulados", (() => { const a = egr.map(p => +p.de).filter(Boolean); return a.length ? `de ${Math.min(...a)} a ${Math.max(...a)}` : ""; })()],
     [String(pos.length), "pós-doutorandos", "ingresso em 2024 e 2025"],
     [String(unicas.length), "trabalhos encontrados", "de 2021 a 2026, sem duplicar coautorias"],
     [String(comDoc), "com docente do programa como coautor", `${Math.round(100 * comDoc / Math.max(1, unicas.length))}% dos trabalhos`]

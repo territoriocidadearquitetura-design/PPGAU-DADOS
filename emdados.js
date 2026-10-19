@@ -1,15 +1,28 @@
 // "PPGAU UNIVAG em dados": página inicial do portal. Linha de base 2021–2024 tirada da Ficha de
 // Avaliação da Quadrienal 2025 e dos relatórios de dados enviados ao Coleta (2021–2024).
 // Depende de: st, esc, nPub, respostasValidas, PUBLICOS, barras (index.html / portal.js).
+// Data da última atualização dos dados de cada seção, mostrada no topo do site e em cada seção.
+// Ao atualizar o portal, trocar ATUALIZ.geral e a data das seções que mudaram.
+const ATUALIZ = {
+  geral: "19/10/2026",
+  secoes: { historia: "19/10/2026", programa: "19/10/2026", capes: "19/10/2026", docentes: "18/10/2026", formacao: "18/10/2026", pessoas: "18/10/2026", producao: "18/10/2026", impacto: "17/10/2026", fontes: "19/10/2026" },
+  coleta: "Autoavaliação 2026 em coleta até 03/11/2026"
+};
+function carimbo(id) {
+  const ic = `<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+  if (id === "autoavaliacao") return `<p class="atz coleta">${ic}${esc(ATUALIZ.coleta)}; participação atualizada a cada acesso</p>`;
+  const d = ATUALIZ.secoes[id] || ATUALIZ.geral;
+  return `<p class="atz">${ic}Dados atualizados em ${d}</p>`;
+}
 const BASE = {
   // Fontes para auditoria: [documento, de onde foi extraído, link, o que alimenta no portal, data].
   fontes: [
-    ["Ficha de Avaliação do programa, Quadrienal 2025", "Plataforma Sucupira, área da Coleta CAPES do programa (publicada em 12/01/2026)", "https://sucupira.capes.gov.br/", "Conceitos e justificativas por quesito e item (Avaliação CAPES), linha de base das Metas 2025–2028", "12/01/2026"],
-    ["Relatório de Avaliação 2021–2024 da área Arquitetura, Urbanismo e Design", "Portal da CAPES, área do administrador do programa", "", "Médias do subgrupo usadas como referência nas Metas e na Avaliação CAPES", "2025"],
+    ["Ficha de Avaliação do programa, Quadrienal 2025", "Plataforma Sucupira, área da Coleta CAPES do programa (publicada em 12/01/2026)", "https://sucupira.capes.gov.br/", "Documento de referência da coordenação", "12/01/2026"],
+    ["Relatório de Avaliação 2021–2024 da área Arquitetura, Urbanismo e Design", "Portal da CAPES, área do administrador do programa", "", "Documento de referência da coordenação", "2025"],
     ["Relatórios de dados enviados ao Coleta CAPES, 2021 a 2024", "Plataforma Sucupira, relatórios do Coleta CAPES do programa", "https://sucupira.capes.gov.br/", "Séries 2021–2024: docentes, turmas, projetos, matrículas, titulações, produção, bolsas, ficha de cada docente", "2021–2024"],
     ["Autoavaliação do PPGAU UNIVAG", "Site do programa, menu Institucional", "https://www.univag-ppgau.com/_files/ugd/036f6f_3d11ab1fd9d74f5ca3c9e8883a53069a.pdf", "Histórico da autoavaliação e metas do programa", "03/02/2025"],
     ["Planejamento Estratégico do PPGAU UNIVAG", "Site do programa, menu Institucional", "https://www.univag-ppgau.com/_files/ugd/036f6f_c9868e03fc454c169e8471920264f98a.pdf", "Documento de referência do programa (consulta)", "consulta em 17/10/2026"],
-    ["Fichas de Avaliação 2025–2028 e Documento de Área (Arquitetura, Urbanismo e Design)", "Portal da CAPES, documentos da área 29", "", "Critérios e mínimos usados nas Metas 2025–2028", "2025"],
+    ["Fichas de Avaliação 2025–2028 e Documento de Área (Arquitetura, Urbanismo e Design)", "Portal da CAPES, documentos da área 29", "", "Documento de referência da coordenação", "2025"],
     ["Corpo docente", "Site do programa, página Corpo Docente", "https://www.univag-ppgau.com/corpo-docente", "Nomes, titulação, fotos, links do Lattes e do ORCID", "consulta em 17/10/2026"],
     ["Discentes e orientações em andamento", "Currículos Lattes dos docentes (18/10/2026) e página Discentes do site do programa", "https://www.univag-ppgau.com/discentes", "Orientandos de cada docente e indicadores de orientação", "consulta em 17/10/2026"],
     ["Dissertações defendidas", "Site do programa e Repositório Digital UNIVAG", "https://www.univag-ppgau.com/dissertacao-defendidas", "Lista de dissertações, defesas por docente", "consulta em 17/10/2026"],
@@ -310,11 +323,11 @@ function renderEmDados() {
   const atual = soCapes ? "capes" : st.psec;
   const num = id => id === "capes" ? "" : String(navSec.findIndex(x => x[0] === id)).padStart(2, "0");
   const DESC = { historia: "Os marcos do programa, de 2018 até hoje, ano a ano", pessoas: "Discentes, egressos e pós-doutorandos, com orientação e produção", impacto: "Projetos, prêmios, mídia, eventos e parcerias", programa: "Área de concentração, três linhas de pesquisa e histórico", capes: "Conceitos oficiais da Quadrienal 2025, item por item", docentes: "Os 13 docentes, permanentes e projetos de pesquisa", formacao: "Processo seletivo, matrículas, bolsas, defesas e dissertações", producao: "Artigos, livros e produção técnica de 2021 a 2024", autoavaliacao: "Participação nos questionários de 2026", fontes: "Documentos oficiais usados no portal" };
-  const atalhos = [...secoes.filter(x => x[0] !== "inicio").map(([id, t]) => id === "capes" ? { goto: "capes", ic: "capes", t: "Avaliação CAPES 2021–2024", d: DESC[id] } : { ir: id, t, d: DESC[id] }),
+  const atalhos = [...secoes.filter(x => x[0] !== "inicio" && x[0] !== "capes").map(([id, t]) => id === "capes" ? { goto: "capes", ic: "capes", t: "Avaliação CAPES 2021–2024", d: DESC[id] } : { ir: id, t, d: DESC[id] }),
     { goto: "responder", ic: "responder", t: "Responder à autoavaliação", d: "Questionário anônimo para cada público", cta: true }];
   if (!secoes.some(x => x[0] === st.psec)) st.psec = "inicio";
   const leitura = id => { const l = id === "producao" && st.pjan && st.pjan !== "q1" ? null : BASE.leitura[id]; return l ? `<div class="leit">${[["O que os dados mostram", "mostra"], ["O que a CAPES avalia", "capes"], ["Ponto de atenção", "atencao"]].map(([t, c], i) => `<div class="lt ${c}"><span class="dim">${t}</span><p>${esc(l[i])}</p></div>`).join("")}</div>` : ""; };
-  const sec = (id, titulo, sub, corpo) => atual === id ? `<section class="psec" id="ps-${id}" role="tabpanel" aria-labelledby="pt-${id}"><header><span class="idx">${num(id)}</span><h2>${esc(titulo)}</h2><p>${esc(sub)}</p></header>${leitura(id)}${corpo}</section>` : "";
+  const sec = (id, titulo, sub, corpo) => atual === id ? `<section class="psec" id="ps-${id}" role="tabpanel" aria-labelledby="pt-${id}"><header><span class="idx">${num(id)}</span><h2>${esc(titulo)}</h2><p>${esc(sub)}</p>${carimbo(id)}</header>${leitura(id)}${corpo}</section>` : "";
   const linhas = BASE.programa.find(x => x[0] === "Linhas de pesquisa")[1].split("; ").map(l => l.replace(/ \(a partir de 2026\)$/, ""));
   const todosItens = BASE.quesitos.flatMap(q => q.itens.map(i => [...i, q.id]));
   $view.innerHTML = `
@@ -327,7 +340,6 @@ function renderEmDados() {
     ${atual === "inicio" ? `
       <div class="dest">
         <div class="dcard auto"><span class="dim">Agora · participe</span><strong>Autoavaliação 2026 aberta</strong><p>Estudantes, docentes, pós-doutorandos, egressos, equipe técnica e gestão: a sua resposta orienta o planejamento do programa. Leva de 10 a 20 minutos, no celular, sem login.</p><span class="auto-prazo">Prazo final: <b>3 de novembro de 2026</b></span><button class="auto-btn" data-goto="responder">Responder agora →</button></div>
-        <div class="dcard navy"><span class="dim">Destaque</span><strong>Quesito Programa avaliado como Muito Bom</strong><p>Os quatro itens do quesito 1 receberam o conceito máximo na Quadrienal 2025, inclusive a autoavaliação.</p><button class="lnk" data-goto="capes">Ver a avaliação (Painel administrativo) →</button></div>
         <div class="dcard gold"><span class="dim">Destaque</span><strong>Revista Vernácula: 8 números em dois anos</strong><p>O periódico do programa, ISSN 2965-6125, publicou 4 números em 2023 e 4 em 2024.</p><a class="lnk" href="https://periodicos.univag.com.br/index.php/Vernacula/index" target="_blank" rel="noopener">Acessar a revista ↗</a></div>
       </div>
       <h3 class="sub">Atalhos</h3>
