@@ -29,7 +29,7 @@ const HIST = [
   { ano: "2026", cat: "inst", t: "Terceira linha de pesquisa", d: "Gestão, Inovação e Tecnologias, criada pelo Edital 05/2026. Entra na Sucupira com a Coleta 2026.", f: "Edital 05/2026 do programa" },
   { ano: "2026", cat: "aval", t: "Portaria CAPES nº 246/2026", d: "Permite que mestrado nota 3 proponha doutorado; a proposta é julgada com os dados do quadriênio em curso.", f: "Diário Oficial da União, 03/06/2026" },
   { ano: "2026", cat: "aval", t: "Autoavaliação 2026 e portal PPGAU UNIVAG em dados", d: "Questionários para seis públicos, com coleta até 3 de novembro de 2026, e este portal com os dados do programa e as fontes citadas.", f: "Este portal" },
-  { ano: "2026", cat: "form", t: "Maior turma de ingressantes", d: "Dezesseis novos mestrandos em 2026, incluindo a turma de 2026/2.", f: "Página Discentes do site do programa" },
+  { ano: "2026", cat: "form", t: "Maior turma de ingressantes", d: "Vinte novos mestrandos em 2026: 13 na turma de 2026/1 e 7 na de 2026/2.", f: "Lista oficial de alunos do programa" },
   { ano: "2027", cat: "aval", t: "Proposta de doutorado", d: "Preparar regimento, matriz e edital, e submeter a proposta (APCN) se os dados sustentarem nota 4.", f: "Aba Metas para o Doutorado", plano: true },
   { ano: "2028", cat: "aval", t: "Fim do quadriênio 2025–2028", d: "Meta: chegar à nota 4 na Quadrienal, com Bom em Formação.", f: "Aba Metas 2025–2028", plano: true }
 ];
@@ -81,7 +81,7 @@ function historiaCorpo() {
       return `<li class="hl-ano${plano ? " plano" : ""}" id="hl-y-${a}" data-ano="${a}"><div class="hl-marca"><span class="hl-y">${esc(a)}</span>${plano ? `<span class="hl-pl">planejado</span>` : ""}</div>
         <div class="hl-it">${n(nums[a])}${doAno.map(h => `<details class="hl-card" style="--hc:${HIST_CAT[h.cat][1]}"><summary>${chip(h.cat)}<h4>${esc(h.t)}</h4></summary><p>${esc(h.d)}</p><span class="fonte">Fonte: ${esc(h.f)}</span></details>`).join("")}</div></li>`;
     }).join("")}</ol>
-    <p class="fonte">Números por ano: docentes permanentes, ingressantes e artigos de 2021 a 2024 pela Coleta CAPES; defesas pelo repositório digital do UNIVAG; ingressantes de 2025 e 2026 pela página Discentes do site; artigos de 2025 e 2026 pelos currículos Lattes de 18/10/2026 (*2026 até outubro). Os marcos de 2027 e 2028 são metas do planejamento, não fatos.</p>`;
+    <p class="fonte">Números por ano: docentes permanentes, ingressantes e artigos de 2021 a 2024 pela Coleta CAPES; defesas pelo repositório digital do UNIVAG; ingressantes de 2025 e 2026 pela lista oficial de alunos do programa; artigos de 2025 e 2026 pelos currículos Lattes de 18/10/2026 (*2026 até outubro). Os marcos de 2027 e 2028 são metas do planejamento, não fatos.</p>`;
 }
 
 // Liga a interação depois que a seção é desenhada (chamada por renderEmDados).
