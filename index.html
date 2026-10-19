@@ -1089,6 +1089,10 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
   .rel-fim dl div { display: flex; gap: 8px; } .rel-fim dt { font-weight: 700; min-width: 210px; }
 }
 
+.atz { justify-self: start; width: fit-content; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); margin: 6px 0 0; background: var(--surface-2); border-radius: 999px; padding: 3px 10px; }
+.atz.coleta { background: var(--warn-bg); color: var(--warn-ink); }
+.atz-top { margin: 10px 0 0; font-size: 14px; color: rgba(255,255,255,.85); display: flex; flex-wrap: wrap; gap: 4px 14px; } .atz-top b { color: #fff; } .atz-top span { color: #ffd9d6; }
+.atz-top:empty { display: none; }
 /* Análise da produção docente (painel administrativo) */
 .an-l1 { --an: #1baf7a; } .an-l2 { --an: #2a78d6; } .an-l3 { --an: #eb6834; } .an-par { --an: #b9c2cd; } .an-fora { --an: #6f7c89; } .an-nao { --an: #e3e7ec; } .an-semlin { --an: #d9e0e7; }
 .an-q1 { --an: #104281; } .an-q2 { --an: #2a78d6; } .an-q3 { --an: #86b6ef; } .an-q4 { --an: #9aa5b1; } .an-q5 { --an: #dfe4ea; }
@@ -1162,6 +1166,7 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
     <div class="eyebrow">Mestrado acadêmico · Várzea Grande, MT · Nota CAPES 3</div>
     <h1>PPGAU UNIVAG <span>em dados</span></h1>
     <p class="lead">Portal de transparência do Programa de Pós-Graduação em Arquitetura e Urbanismo do UNIVAG: indicadores, avaliação CAPES, metas e autoavaliação, <span class="lead-hl">com todas as fontes citadas</span>.</p>
+    <p class="atz-top" id="atz-top"></p>
     <nav class="tabs" role="tablist">
       <button id="tab-portal" role="tab" aria-selected="true" data-tab="portal">Em dados</button>
       <button id="tab-auto" role="tab" aria-selected="false" data-tab="responder" data-grupo="auto"><span class="ta-dot" aria-hidden="true"></span>Autoavaliação <span class="ta-badge">até 03/11</span></button>
@@ -2512,6 +2517,7 @@ function gerarRelatorio(adm) {
       <div class="rc-meta">
         <span><b>Mestrado acadêmico</b> · Código CAPES 50014013001P9 · Nota 3 · Várzea Grande, MT</span>
         <span>Coordenação do programa: Profa. Dra. Jeane Aparecida Rombi de Godoy · Coordenação adjunta: Prof. Dr. Angelo Palmisano</span>
+        <span><b>Dados atualizados em ${esc(typeof ATUALIZ === "object" ? ATUALIZ.geral : "")}</b> · ${esc(typeof ATUALIZ === "object" ? ATUALIZ.coleta : "")}</span>
         <span>Gerado em ${esc(hojeBR())} a partir de ${esc(location.href.split("#")[0])}</span>
       </div>
     </section>
@@ -2592,6 +2598,7 @@ function hashAtual() {
 function syncHash() { const h = hashAtual(); if (location.hash !== h) history.pushState(null, "", h); }
 document.addEventListener("click", () => setTimeout(syncHash, 0));
 window.addEventListener("popstate", () => { if (lerHash()) { render(); window.scrollTo(0, 0); } });
+(() => { const t = document.getElementById("atz-top"); if (t && typeof ATUALIZ === "object") t.innerHTML = `<b>Dados atualizados em ${ATUALIZ.geral}</b><span>${esc(ATUALIZ.coleta)}</span>`; })();
 lerHash();
 render();
 if (!location.hash) history.replaceState(null, "", hashAtual());

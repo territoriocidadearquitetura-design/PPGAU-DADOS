@@ -1,6 +1,19 @@
 // "PPGAU UNIVAG em dados": página inicial do portal. Linha de base 2021–2024 tirada da Ficha de
 // Avaliação da Quadrienal 2025 e dos relatórios de dados enviados ao Coleta (2021–2024).
 // Depende de: st, esc, nPub, respostasValidas, PUBLICOS, barras (index.html / portal.js).
+// Data da última atualização dos dados de cada seção, mostrada no topo do site e em cada seção.
+// Ao atualizar o portal, trocar ATUALIZ.geral e a data das seções que mudaram.
+const ATUALIZ = {
+  geral: "19/10/2026",
+  secoes: { historia: "19/10/2026", programa: "19/10/2026", capes: "19/10/2026", docentes: "18/10/2026", formacao: "18/10/2026", pessoas: "18/10/2026", producao: "18/10/2026", impacto: "17/10/2026", fontes: "19/10/2026" },
+  coleta: "Autoavaliação 2026 em coleta até 03/11/2026"
+};
+function carimbo(id) {
+  const ic = `<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+  if (id === "autoavaliacao") return `<p class="atz coleta">${ic}${esc(ATUALIZ.coleta)}; participação atualizada a cada acesso</p>`;
+  const d = ATUALIZ.secoes[id] || ATUALIZ.geral;
+  return `<p class="atz">${ic}Dados atualizados em ${d}</p>`;
+}
 const BASE = {
   // Fontes para auditoria: [documento, de onde foi extraído, link, o que alimenta no portal, data].
   fontes: [
@@ -314,7 +327,7 @@ function renderEmDados() {
     { goto: "responder", ic: "responder", t: "Responder à autoavaliação", d: "Questionário anônimo para cada público", cta: true }];
   if (!secoes.some(x => x[0] === st.psec)) st.psec = "inicio";
   const leitura = id => { const l = id === "producao" && st.pjan && st.pjan !== "q1" ? null : BASE.leitura[id]; return l ? `<div class="leit">${[["O que os dados mostram", "mostra"], ["O que a CAPES avalia", "capes"], ["Ponto de atenção", "atencao"]].map(([t, c], i) => `<div class="lt ${c}"><span class="dim">${t}</span><p>${esc(l[i])}</p></div>`).join("")}</div>` : ""; };
-  const sec = (id, titulo, sub, corpo) => atual === id ? `<section class="psec" id="ps-${id}" role="tabpanel" aria-labelledby="pt-${id}"><header><span class="idx">${num(id)}</span><h2>${esc(titulo)}</h2><p>${esc(sub)}</p></header>${leitura(id)}${corpo}</section>` : "";
+  const sec = (id, titulo, sub, corpo) => atual === id ? `<section class="psec" id="ps-${id}" role="tabpanel" aria-labelledby="pt-${id}"><header><span class="idx">${num(id)}</span><h2>${esc(titulo)}</h2><p>${esc(sub)}</p>${carimbo(id)}</header>${leitura(id)}${corpo}</section>` : "";
   const linhas = BASE.programa.find(x => x[0] === "Linhas de pesquisa")[1].split("; ").map(l => l.replace(/ \(a partir de 2026\)$/, ""));
   const todosItens = BASE.quesitos.flatMap(q => q.itens.map(i => [...i, q.id]));
   $view.innerHTML = `
