@@ -2521,6 +2521,7 @@ function imprimirPagina() {
 function gerarRelatorio(adm, anexos) {
   // Parte executiva: texto analítico e gráficos (relatorio.js; o administrativo vem no pacote cifrado).
   const exec = adm ? (typeof relExecAdm === "function" ? relExecAdm() : []) : (typeof relExecPublico === "function" ? relExecPublico() : []);
+  if (!exec.length) anexos = true; // sem a parte executiva (pacote antigo), sai o relatório com as páginas
   const salvo = { tab: st.tab, psec: st.psec, pjan: st.pjan, pgrupo: st.pgrupo, docente: st.docente, pessoa: st.pessoa, y: window.scrollY };
   st.docente = null; st.pessoa = null;
   const partes = [];
