@@ -340,7 +340,6 @@ function renderEmDados() {
     ${atual === "inicio" ? `
       <div class="dest">
         <div class="dcard auto"><span class="dim">Agora · participe</span><strong>Autoavaliação 2026 aberta</strong><p>Estudantes, docentes, pós-doutorandos, egressos, equipe técnica e gestão: a sua resposta orienta o planejamento do programa. Leva de 10 a 20 minutos, no celular, sem login.</p><span class="auto-prazo">Prazo final: <b>3 de novembro de 2026</b></span><button class="auto-btn" data-goto="responder">Responder agora →</button></div>
-        <div class="dcard navy"><span class="dim">Destaque</span><strong>Quesito Programa avaliado como Muito Bom</strong><p>Os quatro itens do quesito 1 receberam o conceito máximo na Quadrienal 2025, inclusive a autoavaliação.</p><button class="lnk" data-goto="capes">Ver a avaliação (Painel administrativo) →</button></div>
         <div class="dcard gold"><span class="dim">Destaque</span><strong>Revista Vernácula: 8 números em dois anos</strong><p>O periódico do programa, ISSN 2965-6125, publicou 4 números em 2023 e 4 em 2024.</p><a class="lnk" href="https://periodicos.univag.com.br/index.php/Vernacula/index" target="_blank" rel="noopener">Acessar a revista ↗</a></div>
       </div>
       <h3 class="sub">Atalhos</h3>
