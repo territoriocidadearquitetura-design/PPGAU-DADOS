@@ -5,7 +5,7 @@
 // Ao atualizar o portal, trocar ATUALIZ.geral e a data das seções que mudaram.
 const ATUALIZ = {
   geral: "19/10/2026",
-  secoes: { historia: "19/10/2026", programa: "19/10/2026", capes: "19/10/2026", docentes: "18/10/2026", formacao: "18/10/2026", pessoas: "18/10/2026", producao: "18/10/2026", impacto: "17/10/2026", fontes: "19/10/2026" },
+  secoes: { historia: "19/10/2026", programa: "19/10/2026", capes: "19/10/2026", docentes: "18/10/2026", formacao: "19/10/2026", pessoas: "19/10/2026", producao: "18/10/2026", impacto: "17/10/2026", fontes: "19/10/2026" },
   coleta: "Autoavaliação 2026 em coleta até 03/11/2026"
 };
 function carimbo(id) {
