@@ -1093,6 +1093,48 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
 .atz.coleta { background: var(--warn-bg); color: var(--warn-ink); }
 .atz-top { margin: 10px 0 0; font-size: 14px; color: rgba(255,255,255,.85); display: flex; flex-wrap: wrap; gap: 4px 14px; } .atz-top b { color: #fff; } .atz-top span { color: #ffd9d6; }
 .atz-top:empty { display: none; }
+/* Menu do relatório completo */
+.pdfbar { position: relative; }
+.pdf-menu { position: fixed; z-index: 60; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 10px 30px rgba(2, 32, 95, .18); padding: 6px; display: grid; gap: 4px; }
+.pdf-menu[hidden] { display: none; }
+.pdf-menu button { display: grid; gap: 2px; text-align: left; background: none; border: 0; border-radius: 8px; padding: 10px 12px; cursor: pointer; color: var(--ink); font: inherit; }
+.pdf-menu button:hover, .pdf-menu button:focus-visible { background: var(--bg-2, rgba(2, 32, 95, .06)); outline: none; }
+.pdf-menu b { color: var(--accent); font-size: 15px; } .pdf-menu small { color: var(--muted); font-size: 13px; }
+/* Relatório executivo (só aparece na impressão) */
+.rx { color: #1d2433; font-size: 13.5px; line-height: 1.55; }
+.rx p { margin: 0 0 10px; max-width: none; }
+.rx-h { display: flex; align-items: baseline; gap: 12px; font: 700 24px/1.2 var(--f-display); color: #02205f; margin: 0 0 14px; padding-bottom: 8px; border-bottom: 3px solid #febf01; }
+.rx-h span { font-size: 15px; color: #fff; background: #02205f; border-radius: 6px; padding: 2px 9px; }
+.rx-h3 { font: 700 15px var(--f-display); color: #02205f; margin: 16px 0 6px; }
+.rx-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0 0 14px; }
+.rx-kpis div { border: 1px solid #d5dbe5; border-top: 3px solid #02205f; border-radius: 6px; padding: 8px 10px; display: grid; }
+.rx-kpis b { font: 700 24px/1.1 var(--f-display); color: #02205f; } .rx-kpis span { font-weight: 600; font-size: 13px; } .rx-kpis small { color: #5b6577; font-size: 11.5px; }
+.rx-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+.rx-cx { border-radius: 6px; padding: 10px 12px; margin: 0 0 12px; border-left: 4px solid; background: #f6f8fb; }
+.rx-cx b { display: block; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+.rx-cx ul, .rx-cx ol { margin: 0; padding-left: 18px; } .rx-cx li { margin: 3px 0; } .rx-cx li b { display: inline; text-transform: none; letter-spacing: 0; font-size: inherit; }
+.rx-cx.ok { border-color: #1baf7a; } .rx-cx.ok > b { color: #0f7a54; } .rx-cx.at { border-color: #eb6834; background: #fff6ef; } .rx-cx.at > b { color: #b4461b; }
+.rx-cx.info { border-color: #2a78d6; } .rx-cx.info > b { color: #1d5aa6; } .rx-cx.ac { border-color: #febf01; background: #fffaeb; } .rx-cx.ac > b { color: #02205f; }
+.rx-fig { margin: 4px 0 14px; border: 1px solid #e1e6ee; border-radius: 6px; padding: 10px 12px 8px; }
+.rx-fig figcaption { font-size: 13px; color: #02205f; margin-bottom: 6px; }
+.rx-svg { width: 100%; height: auto; display: block; }
+.rx-svg .rx-v { font: 700 12px var(--f-body); fill: #1d2433; text-anchor: middle; } .rx-svg .rx-x { font: 12px var(--f-body); fill: #5b6577; text-anchor: middle; }
+.rx-svg .rx-eixo { stroke: #9aa4b2; stroke-width: 1; } .rx-svg .rx-ref { stroke: #b4461b; stroke-width: 1.2; stroke-dasharray: 5 4; } .rx-svg .rx-reft { font: 600 11px var(--f-body); fill: #b4461b; } .rx-svg .rx-grade { stroke: #e3e7ee; stroke-dasharray: 2 3; } .rx-svg .rx-fim { font: 12px var(--f-body); }
+.rx-leg { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: #3b4456; margin-top: 6px; }
+.rx-leg i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+.rx-hb { display: grid; gap: 5px; } .rx-hbl { display: grid; grid-template-columns: minmax(120px, 42%) 1fr auto; gap: 8px; align-items: center; font-size: 12.5px; }
+.rx-hbb { height: 12px; background: #eef1f5; border-radius: 3px; overflow: hidden; } .rx-hbb i { display: block; height: 100%; border-radius: 0 3px 3px 0; }
+.rx-hbv { font-weight: 700; min-width: 2.5em; text-align: right; }
+.rx-parte { display: flex; gap: 2px; height: 22px; border-radius: 4px; overflow: hidden; margin: 4px 0 2px; } .rx-parte i { display: block; height: 100%; }
+.rx-nota { font-size: 11.5px; color: #5b6577; margin: 6px 0 0 !important; } .rx-fonte { font-size: 11.5px; color: #5b6577; margin: 4px 0 0 !important; }
+.rx-tw { margin: 4px 0 2px; } .rx-tab { width: 100%; border-collapse: collapse; font-size: 12px; }
+.rx-tab th { text-align: left; background: #02205f; color: #fff; font-weight: 600; padding: 5px 7px; } .rx-tab td { padding: 5px 7px; border-bottom: 1px solid #e1e6ee; vertical-align: top; }
+.rx-tab tr:nth-child(even) td { background: #f8f9fb; } .rx-tab-p td { font-size: 11.5px; }
+.rx-pill, .rx-st { display: inline-block; white-space: nowrap; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 10px; color: #fff; background: var(--c); }
+.rx-neg { color: #b4461b; }
+.rx-tl { list-style: none; padding: 0; margin: 0 0 8px; display: grid; gap: 4px; } .rx-tl li { display: grid; grid-template-columns: 56px 1fr; gap: 8px; } .rx-tl b { color: #02205f; }
+.rc-tipo { display: inline-block; font: 700 13px var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: #02205f; background: #febf01; padding: 4px 10px; border-radius: 4px; margin: 0 0 12px; }
+@media print { .rel-sec.rx-sec { break-before: auto; margin-top: 26px; } .rel-capa + .rel-sec.rx-sec { margin-top: 0; } .pdf-menu { display: none !important; } .rx, .rx * { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .rx-sec .rx-fig, .rx-sec .rx-cx, .rx-sec .rx-kpis, .rx-sec tr { break-inside: avoid; } .rx-h, .rx-h3 { break-after: avoid; } }
 /* Análise da produção docente (painel administrativo) */
 .an-l1 { --an: #1baf7a; } .an-l2 { --an: #2a78d6; } .an-l3 { --an: #eb6834; } .an-par { --an: #b9c2cd; } .an-fora { --an: #6f7c89; } .an-nao { --an: #e3e7ec; } .an-semlin { --an: #d9e0e7; }
 .an-q1 { --an: #104281; } .an-q2 { --an: #2a78d6; } .an-q3 { --an: #86b6ef; } .an-q4 { --an: #9aa5b1; } .an-q5 { --an: #dfe4ea; }
@@ -1142,6 +1184,9 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
 .an-rede .an-n text { font: 600 13px var(--f-body); fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 3px; }
 .an-rede.foco .an-n { opacity: .3; } .an-rede.foco .an-n.on { opacity: 1; }
 .an-n:focus { outline: none; } .an-n:focus-visible circle { stroke: var(--gold); stroke-width: 3; }
+.an-rctl { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin: 4px 0 8px; font-size: 14px; } .an-rctl label { display: inline-flex; align-items: center; gap: 8px; } .an-rctl input[type=range] { width: 140px; accent-color: var(--accent); } .an-rctl b { min-width: 1.5em; } .an-rctl .btn { padding: 6px 12px; font-size: 14px; }
+.an-rede { touch-action: none; user-select: none; } .an-rede .an-n { cursor: grab; } .an-rede .an-n.pega { cursor: grabbing; } .an-rede .an-e.off { display: none; }
+@media print { .an-rctl { display: none !important; } }
 .an-redeinfo { border-left: 3px solid var(--gold); padding: 4px 0 4px 12px; display: grid; gap: 4px; } .an-redeinfo ul { margin: 0; padding-left: 18px; } .an-redeinfo p { margin: 0; }
 .an-trac { display: inline-block; width: 22px; height: 0; border-top: 3px solid var(--ink-2); vertical-align: middle; margin-right: 6px; opacity: .6; } .an-trac.ori { border-top: 2px dashed var(--ink-2); }
 .an-papel { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
@@ -1165,13 +1210,13 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
   <div class="wrap">
     <div class="eyebrow">Mestrado acadêmico · Várzea Grande, MT · Nota CAPES 3</div>
     <h1>PPGAU UNIVAG <span>em dados</span></h1>
-    <p class="lead">Portal de transparência do Programa de Pós-Graduação em Arquitetura e Urbanismo do UNIVAG: indicadores, avaliação CAPES, metas e autoavaliação, <span class="lead-hl">com todas as fontes citadas</span>.</p>
+    <p class="lead">Portal de transparência do Programa de Pós-Graduação em Arquitetura e Urbanismo do UNIVAG: indicadores, formação, produção, impacto e autoavaliação, <span class="lead-hl">com todas as fontes citadas</span>.</p>
     <p class="atz-top" id="atz-top"></p>
     <nav class="tabs" role="tablist">
       <button id="tab-portal" role="tab" aria-selected="true" data-tab="portal">Em dados</button>
       <button id="tab-auto" role="tab" aria-selected="false" data-tab="responder" data-grupo="auto"><span class="ta-dot" aria-hidden="true"></span>Autoavaliação <span class="ta-badge">até 03/11</span></button>
     </nav>
-    <div class="pdfbar" id="pdfbar"><button class="pdf-b" id="pdf-pag" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1h-2M7 14h10v7H7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>PDF desta página</button><button class="pdf-b forte" id="pdf-rel" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8zM14 3v5h5M9 13h6M9 17h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Relatório completo (PDF)</button></div>
+    <div class="pdfbar" id="pdfbar"><button class="pdf-b" id="pdf-pag" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1h-2M7 14h10v7H7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>PDF desta página</button><button class="pdf-b forte" id="pdf-rel" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8zM14 3v5h5M9 13h6M9 17h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Relatório executivo (PDF)</button><div class="pdf-menu" id="pdf-menu" role="menu" hidden><button type="button" role="menuitem" data-rel="exec"><b>Relatório executivo</b><small>Análise escrita com gráficos e fontes</small></button><button type="button" role="menuitem" data-rel="anexo"><b>Executivo com anexos</b><small>Inclui todas as páginas do portal no final</small></button></div></div>
   </div>
 </header>
 
@@ -1220,6 +1265,7 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
 <script src="prodlattes.js"></script>
 <script src="projlattes.js"></script>
 <script src="prod.js"></script>
+<script src="relatorio.js"></script>
 <script>
 "use strict";
 const $view = document.getElementById("view");
@@ -1376,7 +1422,7 @@ function render() {
   }
   $view.classList.toggle("narrow", st.tab === "responder" && st.etapa !== "inicio" && !!st.pub);
   syncPdf();
-  const $rel = document.getElementById("pdf-rel"); if ($rel) $rel.lastChild.textContent = naAdm && admAberto() ? "Relatório administrativo (PDF)" : "Relatório completo (PDF)";
+  const $rel = document.getElementById("pdf-rel"); if ($rel) $rel.lastChild.textContent = naAdm && admAberto() ? "Relatório executivo administrativo (PDF)" : "Relatório executivo (PDF)";
   if (naAdm && !admAberto()) renderAdmLogin();
   else if (st.tab === "portal") renderPortal();
   else if (st.tab === "responder") renderResponder();
@@ -2472,7 +2518,9 @@ function imprimirPagina() {
   setTimeout(() => window.print(), 300);
 }
 // Dois relatórios: o público (o que qualquer pessoa vê no site) e o interno administrativo (só as abas do painel, com a senha).
-function gerarRelatorio(adm) {
+function gerarRelatorio(adm, anexos) {
+  // Parte executiva: texto analítico e gráficos (relatorio.js; o administrativo vem no pacote cifrado).
+  const exec = adm ? (typeof relExecAdm === "function" ? relExecAdm() : []) : (typeof relExecPublico === "function" ? relExecPublico() : []);
   const salvo = { tab: st.tab, psec: st.psec, pjan: st.pjan, pgrupo: st.pgrupo, docente: st.docente, pessoa: st.pessoa, y: window.scrollY };
   st.docente = null; st.pessoa = null;
   const partes = [];
@@ -2482,7 +2530,8 @@ function gerarRelatorio(adm) {
     const html = $view.innerHTML.replace(/<details(?![^>]*\bopen\b)/g, "<details open");
     partes.push({ titulo, html });
   };
-  if (adm) {
+  if (!anexos) {}
+  else if (adm) {
     st.rel = true; ADM.forEach(([t, nm]) => pega(t, null, nm)); st.rel = false;
   } else {
   st.tab = "portal"; st.psec = "inicio"; render();
@@ -2509,9 +2558,10 @@ function gerarRelatorio(adm) {
       <div class="rc-logos"><img src="logo-ppgau.png" alt="PPGAU"><img src="logo-univag.png" alt="UNIVAG"></div>
       <div>
         <h1>PPGAU UNIVAG <span>em dados</span></h1>
-        ${adm ? `<p class="rc-sub"><b>Relatório interno administrativo</b> · uso restrito dos professores e da gestão do programa. Reúne a Avaliação CAPES 2021–2024, as Metas 2025–2028, as Metas para o Doutorado e a Análise da produção docente, com as fontes citadas em cada seção.</p>` : `<p class="rc-sub">Relatório do portal de transparência do Programa de Pós-Graduação Stricto Sensu em Arquitetura e Urbanismo do UNIVAG Centro Universitário: indicadores, produção, discentes, impacto e autoavaliação, com as fontes citadas em cada seção.</p>`}
+        <p class="rc-tipo">${adm ? "Relatório executivo administrativo · uso restrito" : "Relatório executivo"}</p>
+        ${adm ? `<p class="rc-sub">Leitura de gestão para a coordenação e os professores do programa: situação na avaliação CAPES, caminho para a nota 4, metas do quadriênio, condições para o doutorado e análise da produção docente, com recomendações e as fontes de cada indicador.</p>` : `<p class="rc-sub">Análise dos indicadores do Programa de Pós-Graduação Stricto Sensu em Arquitetura e Urbanismo do UNIVAG Centro Universitário: trajetória, corpo docente, formação, produção, impacto e autoavaliação, com as fontes citadas em cada seção.</p>`}
         <h3 style="margin:24px 0 6px;font-size:14px;color:#02205f;text-transform:uppercase;letter-spacing:.08em">Conteúdo</h3>
-        <ol>${partes.map(p => `<li>${esc(p.titulo)}</li>`).join("")}</ol>
+        <ol>${exec.map(p => `<li>${esc(p.titulo)}</li>`).join("")}${partes.length ? `<li>Anexos: páginas do portal (${partes.length})</li>` : ""}</ol>
       </div>
       <div class="rc-meta">
         <span><b>Mestrado acadêmico</b> · Código CAPES 50014013001P9 · Nota 3 · Várzea Grande, MT</span>
@@ -2520,7 +2570,8 @@ function gerarRelatorio(adm) {
         <span>Gerado em ${esc(hojeBR())} a partir de ${esc(location.href.split("#")[0])}</span>
       </div>
     </section>
-    ${partes.map(p => `<section class="rel-sec"><div class="rel-sec-h">${esc(p.titulo)}</div>${p.html}</section>`).join("")}
+    ${exec.map(p => `<section class="rel-sec rx-sec">${p.html}</section>`).join("")}
+    ${partes.map(p => `<section class="rel-sec"><div class="rel-sec-h">Anexo · ${esc(p.titulo)}</div>${p.html}</section>`).join("")}
     <section class="rel-fim">
       <div class="rel-sec-h">Créditos e fontes</div>
       <dl><div><dt>Coordenação do programa</dt><dd>Profa. Dra. Jeane Aparecida Rombi de Godoy</dd></div>
@@ -2535,7 +2586,19 @@ function gerarRelatorio(adm) {
   setTimeout(() => window.print(), 300);
 }
 document.getElementById("pdf-pag").onclick = imprimirPagina;
-document.getElementById("pdf-rel").onclick = () => gerarRelatorio(ADM.some(a => a[0] === st.tab) && admAberto());
+// Relatório completo: escolhe entre o executivo e o executivo com as páginas do portal em anexo.
+(() => {
+  const bt = document.getElementById("pdf-rel"), mn = document.getElementById("pdf-menu"); document.body.appendChild(mn);
+  const fecha = () => { mn.hidden = true; bt.setAttribute("aria-expanded", "false"); };
+  bt.setAttribute("aria-haspopup", "menu"); bt.setAttribute("aria-expanded", "false");
+  // O menu fica fixo na tela, abaixo do botão (o cabeçalho corta o que passa da borda).
+  const posiciona = () => { const r = bt.getBoundingClientRect(), w = Math.min(320, innerWidth - 16); mn.style.width = w + "px"; mn.style.left = Math.max(8, Math.min(r.right - w, innerWidth - w - 8)) + "px"; mn.style.top = (r.bottom + 6) + "px"; };
+  bt.onclick = e => { e.stopPropagation(); mn.hidden = !mn.hidden; if (!mn.hidden) posiciona(); bt.setAttribute("aria-expanded", String(!mn.hidden)); };
+  addEventListener("scroll", () => { if (!mn.hidden) posiciona(); }, { passive: true }); addEventListener("resize", () => { if (!mn.hidden) posiciona(); });
+  mn.querySelectorAll("[data-rel]").forEach(b => b.onclick = () => { fecha(); gerarRelatorio(ADM.some(a => a[0] === st.tab) && admAberto(), b.dataset.rel === "anexo"); });
+  document.addEventListener("click", e => { if (!mn.hidden && !mn.contains(e.target)) fecha(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !mn.hidden) { fecha(); bt.focus(); } });
+})();
 
 
 // Relatório impresso da participação (painel da coordenação): por categoria, quem respondeu e quem falta.
