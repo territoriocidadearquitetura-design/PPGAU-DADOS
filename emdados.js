@@ -28,7 +28,7 @@ const BASE = {
     ["Dissertações defendidas", "Site do programa e Repositório Digital UNIVAG", "https://www.univag-ppgau.com/dissertacao-defendidas", "Lista de dissertações, defesas por docente", "consulta em 17/10/2026"],
     ["Grupos de pesquisa", "Diretório dos Grupos de Pesquisa do CNPq e sites dos grupos", "http://dgp.cnpq.br/dgp/", "Grupos, líderes e links", "consulta em 17/10/2026"],
     ["Produção desde 2025", "OpenAlex, consulta pelo ORCID de cada docente (base aberta; não substitui o Lattes)", "https://openalex.org/", "Artigos 2025 e 2026 por docente, coautoria com discentes", "consulta em 17/10/2026"],
-    ["Revista Vernácula", "Portal de periódicos da UNIVAG", "https://periodicos.univag.com.br/index.php/Vernacula/index", "Periódico do programa", "consulta em 17/10/2026"],
+    ["Revista Vernácula", "Portal de periódicos da UNIVAG", "https://periodicos.univag.com.br/index.php/Vernacula/index", "Periódico do programa", "consulta em 19/10/2026 (edições anteriores: v. 1 a 3, n. 1 a 11)"],
     ["Questionários da autoavaliação 2026", "Respostas anônimas registradas neste portal", "", "Aba Resultados e meta de autoavaliação", "atualização contínua"]
   ],
   programa: [
@@ -36,7 +36,7 @@ const BASE = {
     ["Área de concentração", "Arquitetura, Cidade e Território"],
     ["Linhas de pesquisa", "Ambiente Construído e Sustentabilidade; Desenvolvimento Territorial e Local; Gestão, Inovação e Tecnologias (a partir de 2026)"],
     ["Implantação", "Em associação com a PUC-Campinas, encerrada no quadriênio 2021–2024"],
-    ["Periódico do programa", "Vernácula – Territórios Contemporâneos (ISSN 2965-6125), 4 números em 2023 e 4 em 2024"],
+    ["Periódico do programa", "Vernácula – Territórios Contemporâneos (ISSN 2965-6125), Qualis B2 (2021–2024); 11 números: 4 em 2023, 4 em 2024 e 3 em 2025"],
     ["Avaliação CAPES", "Nota 3, mantida na Quadrienal 2025"]
   ],
   quesitos: [], // na área Professores e gestão (restrito.bin)
@@ -340,7 +340,7 @@ function renderEmDados() {
     ${atual === "inicio" ? `
       <div class="dest">
         <div class="dcard auto"><span class="dim">Agora · participe</span><strong>Autoavaliação 2026 aberta</strong><p>Estudantes, docentes, pós-doutorandos, egressos, equipe técnica e gestão: a sua resposta orienta o planejamento do programa. Leva de 10 a 20 minutos, no celular, sem login.</p><span class="auto-prazo">Prazo final: <b>3 de novembro de 2026</b></span><button class="auto-btn" data-goto="responder">Responder agora →</button></div>
-        <div class="dcard gold"><span class="dim">Destaque</span><strong>Revista Vernácula: 8 números em dois anos</strong><p>O periódico do programa, ISSN 2965-6125, publicou 4 números em 2023 e 4 em 2024.</p><a class="lnk" href="https://periodicos.univag.com.br/index.php/Vernacula/index" target="_blank" rel="noopener">Acessar a revista ↗</a></div>
+        <div class="dcard gold"><span class="dim">Destaque</span><strong>Revista Vernácula: 11 números desde 2023</strong><p>O periódico do programa, ISSN 2965-6125, Qualis B2 (2021–2024), publicou 4 números em 2023, 4 em 2024 e 3 em 2025.</p><a class="lnk" href="https://periodicos.univag.com.br/index.php/Vernacula/index" target="_blank" rel="noopener">Acessar a revista ↗</a></div>
       </div>
       <h3 class="sub">Atalhos</h3>
       <div class="atalhos">${atalhos.map(a => `<button class="atl ${a.cta ? "cta" : ""}" ${a.ir ? `data-ir="${a.ir}"` : `data-goto="${a.goto}"`}><span class="ai">${ico(a.ic || a.ir)}</span><span class="at"><strong>${esc(a.t)}</strong><span>${esc(a.d)}</span></span><span class="ar" aria-hidden="true">→</span></button>`).join("")}</div>` : ""}
