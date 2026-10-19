@@ -198,10 +198,12 @@ const BASE = {
   ],
   pilha: { partes: ["Artigos", "Livros e capítulos", "Anais", "Outros"], anos: [[6, 7, 16, 0], [8, 2, 2, 1], [23, 6, 19, 0], [80, 43, 53, 3]] },
   kpis: [
-    ["Docentes permanentes", "12", "em dezembro de 2024", "docentes"],
-    ["Grupos de pesquisa", "4", "cadastrados no CNPq", "programa", "grupos"],
-    ["Mestres titulados", "17", "de 2021 a 2024", "formacao"],
-    ["Artigos em periódicos", "117", "de 2021 a 2024", "producao"]
+    // Até 2026 (pedido de 19/10/2026): titulados = egressos por ano de defesa em PESSOAS (17 em 2021–2024, 7 em 2025, 6 em 2026);
+    // artigos = Coleta CAPES 2021–2024 (117) + Lattes 2025 (27) e 2026 (12), sem livros, anais e capítulos lançados como artigo.
+    ["Docentes permanentes", "12", "em 2026, mais 1 colaboradora", "docentes"],
+    ["Grupos de pesquisa", "4", "cadastrados no CNPq em 2026", "programa", "grupos"],
+    ["Mestres titulados", "30", "de 2021 a 2026", "formacao"],
+    ["Artigos em periódicos", "156", "de 2021 a 2026*", "producao"]
   ],
   destaques: []
 };
@@ -334,7 +336,7 @@ function renderEmDados() {
     ${atual === "inicio" ? `<div class="kpis">
       <div class="kpi gold"><span class="ki">${ico("capes")}</span><span class="dim">Nota CAPES</span><span class="num">3</span><span class="lbl">Quadrienal 2025 · 2021–2024</span></div>
       ${k.map(x => `<div class="kpi" role="button" tabindex="0" data-ir="${x[3]}"><span class="ki">${ico(x[4] || x[3] || "producao")}</span><span class="dim">${esc(x[0])}</span><span class="num">${esc(x[1])}</span><span class="lbl">${esc(x[2])}</span></div>`).join("")}
-    </div>` : ""}
+    </div><p class="fonte" style="margin:-22px 0 22px">Fontes: Coleta CAPES 2021–2024; para 2025 e 2026, currículos Lattes dos docentes (versão de 18/10/2026) e defesas registradas no repositório digital e no site do programa. *2026 até outubro.</p>` : ""}
     ${soCapes ? "" : `<nav class="pnav" role="tablist" aria-label="Seções do portal"><span class="pnav-t">Navegue pelas seções</span><div class="pnav-g">${navSec.map(([id, t]) => `<button role="tab" id="pt-${id}" aria-selected="${st.psec === id}" data-ir="${id}">${ico(id)}<span>${id === "inicio" ? "" : `<b>${num(id)}</b>`}${t}</span></button>`).join("")}</div></nav>`}
     <div class="pcont">
     ${atual === "inicio" ? `
