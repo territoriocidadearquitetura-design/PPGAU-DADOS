@@ -46,22 +46,78 @@ function histNumeros() {
   return out;
 }
 
+const HIST_MET = [["doc", "Docentes permanentes"], ["ing", "Ingressantes"], ["def", "Defesas"], ["art", "Artigos"]];
+
+// Linha do tempo interativa: régua de anos (fixa no topo ao rolar), gráfico de evolução clicável,
+// marcos que abrem e fecham, e o botão "Percorrer" que passa pelos anos sozinho.
 function historiaCorpo() {
-  const filtro = st.hcat || "";
+  const filtro = st.hcat || "", met = st.hmet || "art";
   const nums = histNumeros();
   const itens = HIST.filter(h => !filtro || h.cat === filtro);
   const anos = [...new Set(itens.map(h => h.ano))];
+  const todos = []; for (let a = +HIST[0].ano; a <= +HIST[HIST.length - 1].ano; a++) todos.push(String(a));
   const chip = c => `<span class="hl-cat" style="--hc:${HIST_CAT[c][1]}">${esc(HIST_CAT[c][0])}</span>`;
-  const n = nums => !nums ? "" : `<div class="hl-num">${[["doc", "docentes permanentes"], ["ing", "ingressantes"], ["def", "defesas"], ["art", "artigos"]].filter(([k]) => nums[k] != null).map(([k, r]) => `<span><b>${nums[k]}</b>${r}</span>`).join("")}</div>`;
+  const n = nums => !nums ? "" : `<div class="hl-num">${HIST_MET.filter(([k]) => nums[k] != null).map(([k, r]) => `<span><b>${nums[k]}</b>${r.toLowerCase()}</span>`).join("")}</div>`;
+  const regua = todos.map(a => {
+    const doAno = itens.filter(h => h.ano === a), plano = doAno.length && doAno.every(h => h.plano);
+    return `<button type="button" class="hl-r${doAno.length ? "" : " vazio"}${plano ? " plano" : ""}" data-hano="${a}" ${doAno.length ? "" : "disabled"} aria-label="${a}: ${doAno.length} marco${doAno.length === 1 ? "" : "s"}"><span class="hl-ry">${a}</span><span class="hl-rd">${doAno.map(h => `<i style="--hc:${HIST_CAT[h.cat][1]}"></i>`).join("")}</span></button>`;
+  }).join("");
+  const serie = Object.keys(nums).sort().map(a => [a, nums[a][met]]).filter(x => x[1] != null);
+  const mx = Math.max(1, ...serie.map(x => x[1]));
+  const graf = `<div class="hl-graf card">
+      <div class="hl-gh"><span class="dim">Evolução por ano</span><div class="hl-gm" role="group" aria-label="Indicador">${HIST_MET.map(([k, t]) => `<button type="button" data-hmet="${k}" aria-pressed="${k === met}">${t}</button>`).join("")}</div></div>
+      <div class="hl-bars">${serie.map(([a, v]) => `<button type="button" class="hl-b" data-hano="${a}" title="${a}: ${v} ${esc(HIST_MET.find(m => m[0] === met)[1].toLowerCase())}"><span class="hl-bv">${v}</span><span class="hl-bb" style="height:${Math.max(3, Math.round(v / mx * 100))}%"></span><span class="hl-by">${a}${a === "2026" && met === "art" ? "*" : ""}</span></button>`).join("")}</div>
+      <p class="small muted" style="margin:6px 0 0">Clique em um ano, no gráfico ou na régua, para ir aos marcos daquele ano.</p>
+    </div>`;
   return `
     <div class="hl-top">
       <div class="hl-resumo">${[["2018", "recomendação pela CAPES"], ["2019", "primeira turma"], [String((BASE.dissertacoes || []).length), "dissertações defendidas desde 2021"], ["2024", "corpo docente próprio"], ["3", "linhas de pesquisa em 2026"]].map(([v, r]) => `<div><b>${v}</b><span>${r}</span></div>`).join("")}</div>
+      ${graf}
       <div class="hl-filtro" role="group" aria-label="Filtrar por tema"><button data-hcat="" aria-pressed="${!filtro}">Todos</button>${Object.entries(HIST_CAT).map(([k, [t, c]]) => `<button data-hcat="${k}" aria-pressed="${filtro === k}" style="--hc:${c}"><i></i>${t}</button>`).join("")}</div>
     </div>
+    <div class="hl-regua-w"><div class="hl-ctl"><button type="button" class="hl-cb" data-hpasso="-1" aria-label="Ano anterior">‹</button><button type="button" class="hl-cb hl-play" data-hplay aria-pressed="false">▶ Percorrer</button><button type="button" class="hl-cb" data-hpasso="1" aria-label="Próximo ano">›</button><button type="button" class="hl-cb hl-abre" data-habre>Abrir todos</button></div><div class="hl-regua">${regua}</div></div>
     <ol class="hl">${anos.map(a => {
       const doAno = itens.filter(h => h.ano === a), plano = doAno.every(h => h.plano);
-      return `<li class="hl-ano${plano ? " plano" : ""}"><div class="hl-marca"><span class="hl-y">${esc(a)}</span>${plano ? `<span class="hl-pl">planejado</span>` : ""}</div>
-        <div class="hl-it">${n(nums[a])}${doAno.map(h => `<article class="hl-card" style="--hc:${HIST_CAT[h.cat][1]}">${chip(h.cat)}<h4>${esc(h.t)}</h4><p>${esc(h.d)}</p><span class="fonte">Fonte: ${esc(h.f)}</span></article>`).join("")}</div></li>`;
+      return `<li class="hl-ano${plano ? " plano" : ""}" id="hl-y-${a}" data-ano="${a}"><div class="hl-marca"><span class="hl-y">${esc(a)}</span>${plano ? `<span class="hl-pl">planejado</span>` : ""}</div>
+        <div class="hl-it">${n(nums[a])}${doAno.map(h => `<details class="hl-card" style="--hc:${HIST_CAT[h.cat][1]}"><summary>${chip(h.cat)}<h4>${esc(h.t)}</h4></summary><p>${esc(h.d)}</p><span class="fonte">Fonte: ${esc(h.f)}</span></details>`).join("")}</div></li>`;
     }).join("")}</ol>
     <p class="fonte">Números por ano: docentes permanentes, ingressantes e artigos de 2021 a 2024 pela Coleta CAPES; defesas pelo repositório digital do UNIVAG; ingressantes de 2025 e 2026 pela página Discentes do site; artigos de 2025 e 2026 pelos currículos Lattes de 18/10/2026 (*2026 até outubro). Os marcos de 2027 e 2028 são metas do planejamento, não fatos.</p>`;
+}
+
+// Liga a interação depois que a seção é desenhada (chamada por renderEmDados).
+function ligarHistoria($v) {
+  const ol = $v.querySelector("ol.hl"); if (!ol) return;
+  const anos = [...ol.querySelectorAll(".hl-ano")].map(li => li.dataset.ano);
+  const marca = (a, rolar, abrir) => {
+    st.hano = a;
+    $v.querySelectorAll("[data-hano]").forEach(b => b.classList.toggle("on", b.dataset.hano === a));
+    ol.querySelectorAll(".hl-ano").forEach(li => li.classList.toggle("ativo", li.dataset.ano === a));
+    const li = $v.querySelector("#hl-y-" + a); if (!li) return;
+    if (abrir) li.querySelectorAll("details").forEach(d => d.open = true);
+    if (rolar) { const r = $v.querySelector(".hl-regua-w"); const off = (r ? r.offsetHeight : 0) + 16; window.scrollTo({ top: li.getBoundingClientRect().top + window.scrollY - off, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); }
+    const rb = $v.querySelector(`.hl-r[data-hano="${a}"]`), rg = rb && rb.parentElement; if (rg) rg.scrollLeft = rb.offsetLeft - rg.offsetLeft - rg.clientWidth / 2 + rb.offsetWidth / 2;
+  };
+  let timer = null;
+  const play = $v.querySelector("[data-hplay]");
+  const para = () => { clearInterval(timer); timer = null; if (play) { play.textContent = "▶ Percorrer"; play.setAttribute("aria-pressed", "false"); } };
+  $v.querySelectorAll("[data-hano]").forEach(b => b.onclick = () => { para(); if (anos.includes(b.dataset.hano)) marca(b.dataset.hano, true, true); });
+  $v.querySelectorAll("[data-hpasso]").forEach(b => b.onclick = () => { para(); const i = anos.indexOf(st.hano), d = +b.dataset.hpasso; const j = i < 0 ? (d > 0 ? 0 : anos.length - 1) : Math.min(anos.length - 1, Math.max(0, i + d)); marca(anos[j], true, true); });
+  if (play) play.onclick = () => {
+    if (timer) return para();
+    play.textContent = "❚❚ Pausar"; play.setAttribute("aria-pressed", "true");
+    let i = Math.max(0, anos.indexOf(st.hano)); if (i >= anos.length - 1) i = 0;
+    marca(anos[i], true, true);
+    timer = setInterval(() => { i++; if (i >= anos.length || !document.body.contains(ol)) return para(); marca(anos[i], true, true); }, 3200);
+  };
+  const ab = $v.querySelector("[data-habre]");
+  if (ab) ab.onclick = () => { const abrir = ab.textContent === "Abrir todos"; ol.querySelectorAll("details").forEach(d => d.open = abrir); ab.textContent = abrir ? "Fechar todos" : "Abrir todos"; };
+  $v.querySelectorAll("[data-hmet]").forEach(b => b.onclick = () => { para(); st.hmet = b.dataset.hmet; const y = window.scrollY; renderEmDados(); window.scrollTo(0, y); });
+  // Ao rolar, a régua acompanha o ano que está na tela; cada ano aparece com uma leve animação.
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("vis"); if (!timer) { const a = e.target.dataset.ano; $v.querySelectorAll(".hl-r").forEach(b => b.classList.toggle("on", b.dataset.ano === a || b.dataset.hano === a)); $v.querySelectorAll(".hl-b").forEach(b => b.classList.toggle("on", b.dataset.hano === a)); } } }), { rootMargin: "-35% 0px -55% 0px" });
+    ol.querySelectorAll(".hl-ano").forEach(li => io.observe(li));
+    const io2 = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add("vis")), { rootMargin: "0px 0px -8% 0px" });
+    ol.querySelectorAll(".hl-ano").forEach(li => io2.observe(li));
+  } else ol.querySelectorAll(".hl-ano").forEach(li => li.classList.add("vis"));
+  if (st.hano && anos.includes(st.hano)) marca(st.hano, false, true);
 }

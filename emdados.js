@@ -396,7 +396,8 @@ function renderEmDados() {
   $view.querySelectorAll("[data-pjd]").forEach(s => s.onchange = () => { st.pjD = s.value; const y = window.scrollY; renderEmDados(); window.scrollTo(0, y); });
   $view.querySelectorAll("[data-pdoc-limpa]").forEach(b => b.onclick = () => { st.pdoc = ""; const y = window.scrollY; renderEmDados(); window.scrollTo(0, y); });
   $view.querySelectorAll("[data-pjd-limpa]").forEach(b => b.onclick = () => { st.pjD = ""; const y = window.scrollY; renderEmDados(); window.scrollTo(0, y); });
-  $view.querySelectorAll("[data-hcat]").forEach(b => b.onclick = () => { st.hcat = b.dataset.hcat; const y = window.scrollY; renderEmDados(); window.scrollTo(0, y); });
+  if (typeof ligarHistoria === "function") ligarHistoria($view);
+  $view.querySelectorAll("[data-hcat]").forEach(b => b.onclick = () => { st.hcat = b.dataset.hcat; st.hano = null; const y = window.scrollY; renderEmDados(); window.scrollTo(0, y); });
   $view.querySelectorAll("[data-pt]").forEach(b => b.onclick = () => { st.ptipo = b.dataset.pt; renderEmDados(); });
   $view.querySelectorAll("[data-pdoc]").forEach(s => s.onchange = () => { st.pdoc = s.value; const y = window.scrollY; renderEmDados(); window.scrollTo(0, y); });
   $view.querySelectorAll("[data-pg]").forEach(b => b.onclick = () => { st.pgrupo = b.dataset.pg; st.pessoa = null; renderEmDados(); });
