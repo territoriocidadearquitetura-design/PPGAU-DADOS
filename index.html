@@ -1257,20 +1257,20 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
 </footer>
 <div id="tip" hidden></div>
 
-<script src="questoes.js?v=20261020b"></script>
-<script src="ficha.js?v=20261020b"></script>
-<script src="portal.js?v=20261020b"></script>
-<script src="emdados.js?v=20261020b"></script>
-<script src="fichas.js?v=20261020b"></script>
-<script src="qualis.js?v=20261020b"></script>
-<script src="impacto.js?v=20261020b"></script>
-<script src="pessoas.js?v=20261020b"></script>
-<script src="historia.js?v=20261020b"></script>
-<script src="icl.js?v=20261020b"></script>
-<script src="prodlattes.js?v=20261020b"></script>
-<script src="projlattes.js?v=20261020b"></script>
-<script src="prod.js?v=20261020b"></script>
-<script src="relatorio.js?v=20261020b"></script>
+<script src="questoes.js?v=20261020c"></script>
+<script src="ficha.js?v=20261020c"></script>
+<script src="portal.js?v=20261020c"></script>
+<script src="emdados.js?v=20261020c"></script>
+<script src="fichas.js?v=20261020c"></script>
+<script src="qualis.js?v=20261020c"></script>
+<script src="impacto.js?v=20261020c"></script>
+<script src="pessoas.js?v=20261020c"></script>
+<script src="historia.js?v=20261020c"></script>
+<script src="icl.js?v=20261020c"></script>
+<script src="prodlattes.js?v=20261020c"></script>
+<script src="projlattes.js?v=20261020c"></script>
+<script src="prod.js?v=20261020c"></script>
+<script src="relatorio.js?v=20261020c"></script>
 <script>
 "use strict";
 const $view = document.getElementById("view");
@@ -1422,6 +1422,7 @@ function render() {
     $sub.innerHTML = `<div class="subnav" role="tablist" aria-label="Painel dos professores"><span class="adm-tit">${ICO_CADEADO}Painel dos professores</span>${ADM.map(([k, t]) => `<button role="tab" data-sub="${k}" aria-selected="${k === st.tab}">${t}</button>`).join("")}<button class="adm-sair" data-adm-sair>Sair</button></div>`;
     $sub.querySelectorAll("[data-sub]").forEach(b => b.onclick = () => { st.tab = b.dataset.sub; render(); });
     $sub.querySelector("[data-adm-sair]").onclick = admSair;
+    if (typeof profBase === "function") $sub.insertAdjacentHTML("beforeend", profBase());
   }
   if (naCoord) $sub.innerHTML = `<div class="subnav" aria-label="Painel da coordenação"><span class="adm-tit" style="width:auto">${ICO_CADEADO}${st.podeEditar ? "Participação (coordenação)" : "Painel da coordenação"}</span><span class="small muted">Autoavaliação 2026 e Avaliação CAPES 2021–2024</span></div>`;
   if (naAuto) {
