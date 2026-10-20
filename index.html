@@ -1843,6 +1843,7 @@ function renderCoordCapes() {
     ligarAbasPainel(); return;
   }
   renderEmDados(true);
+  if (typeof capesRaioX === "function") $view.insertAdjacentHTML("beforeend", capesRaioX());
   $view.insertAdjacentHTML("afterbegin", abasPainel() + `<p class="small muted" style="margin:-6px 0 14px">Registro do resultado da Quadrienal 2025 (ciclo 2021–2024). É um resultado já publicado pela CAPES e não muda.</p>`);
   ligarAbasPainel();
 }
