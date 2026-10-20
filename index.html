@@ -1252,20 +1252,20 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
 </footer>
 <div id="tip" hidden></div>
 
-<script src="questoes.js"></script>
-<script src="ficha.js"></script>
-<script src="portal.js"></script>
-<script src="emdados.js"></script>
-<script src="fichas.js"></script>
-<script src="qualis.js"></script>
-<script src="impacto.js"></script>
-<script src="pessoas.js"></script>
-<script src="historia.js"></script>
-<script src="icl.js"></script>
-<script src="prodlattes.js"></script>
-<script src="projlattes.js"></script>
-<script src="prod.js"></script>
-<script src="relatorio.js"></script>
+<script src="questoes.js?v=20261020"></script>
+<script src="ficha.js?v=20261020"></script>
+<script src="portal.js?v=20261020"></script>
+<script src="emdados.js?v=20261020"></script>
+<script src="fichas.js?v=20261020"></script>
+<script src="qualis.js?v=20261020"></script>
+<script src="impacto.js?v=20261020"></script>
+<script src="pessoas.js?v=20261020"></script>
+<script src="historia.js?v=20261020"></script>
+<script src="icl.js?v=20261020"></script>
+<script src="prodlattes.js?v=20261020"></script>
+<script src="projlattes.js?v=20261020"></script>
+<script src="prod.js?v=20261020"></script>
+<script src="relatorio.js?v=20261020"></script>
 <script>
 "use strict";
 const $view = document.getElementById("view");
@@ -1843,6 +1843,7 @@ function renderCoordCapes() {
     ligarAbasPainel(); return;
   }
   renderEmDados(true);
+  if (typeof capesRaioX === "function") $view.insertAdjacentHTML("beforeend", capesRaioX());
   $view.insertAdjacentHTML("afterbegin", abasPainel() + `<p class="small muted" style="margin:-6px 0 14px">Registro do resultado da Quadrienal 2025 (ciclo 2021–2024). É um resultado já publicado pela CAPES e não muda.</p>`);
   ligarAbasPainel();
 }
