@@ -1188,6 +1188,11 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
 .an-rede { touch-action: none; user-select: none; } .an-rede .an-n { cursor: grab; } .an-rede .an-n.pega { cursor: grabbing; } .an-rede .an-e.off { display: none; }
 @media print { .an-rctl { display: none !important; } }
 .an-redeinfo { border-left: 3px solid var(--gold); padding: 4px 0 4px 12px; display: grid; gap: 4px; } .an-redeinfo ul { margin: 0; padding-left: 18px; } .an-redeinfo p { margin: 0; }
+.an-pt { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; background: var(--an); }
+.an-pt.cur, .an-disc .an-al.cur { --an: #1baf7a; } .an-pt.eg, .an-disc .an-al.eg { --an: #9aa5b1; } .an-disc .an-dc { --an: #02205f; }
+.an-disc .an-al circle { stroke-width: 1.5; } .an-rede .an-n image { pointer-events: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .an-disc .an-dc { --an: #9ec5f4; } :root:not([data-theme="light"]) .an-pt.eg, :root:not([data-theme="light"]) .an-disc .an-al.eg { --an: #6f7c89; } }
+:root[data-theme="dark"] .an-disc .an-dc { --an: #9ec5f4; } :root[data-theme="dark"] .an-pt.eg, :root[data-theme="dark"] .an-disc .an-al.eg { --an: #6f7c89; }
 .an-trac { display: inline-block; width: 22px; height: 0; border-top: 3px solid var(--ink-2); vertical-align: middle; margin-right: 6px; opacity: .6; } .an-trac.ori { border-top: 2px dashed var(--ink-2); }
 .an-papel { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
 .an-papel.art { background: var(--accent); color: var(--accent-ink); } .an-papel.int { background: var(--accent-soft); color: var(--accent); }
@@ -1252,20 +1257,20 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
 </footer>
 <div id="tip" hidden></div>
 
-<script src="questoes.js?v=20261020"></script>
-<script src="ficha.js?v=20261020"></script>
-<script src="portal.js?v=20261020"></script>
-<script src="emdados.js?v=20261020"></script>
-<script src="fichas.js?v=20261020"></script>
-<script src="qualis.js?v=20261020"></script>
-<script src="impacto.js?v=20261020"></script>
-<script src="pessoas.js?v=20261020"></script>
-<script src="historia.js?v=20261020"></script>
-<script src="icl.js?v=20261020"></script>
-<script src="prodlattes.js?v=20261020"></script>
-<script src="projlattes.js?v=20261020"></script>
-<script src="prod.js?v=20261020"></script>
-<script src="relatorio.js?v=20261020"></script>
+<script src="questoes.js?v=20261020b"></script>
+<script src="ficha.js?v=20261020b"></script>
+<script src="portal.js?v=20261020b"></script>
+<script src="emdados.js?v=20261020b"></script>
+<script src="fichas.js?v=20261020b"></script>
+<script src="qualis.js?v=20261020b"></script>
+<script src="impacto.js?v=20261020b"></script>
+<script src="pessoas.js?v=20261020b"></script>
+<script src="historia.js?v=20261020b"></script>
+<script src="icl.js?v=20261020b"></script>
+<script src="prodlattes.js?v=20261020b"></script>
+<script src="projlattes.js?v=20261020b"></script>
+<script src="prod.js?v=20261020b"></script>
+<script src="relatorio.js?v=20261020b"></script>
 <script>
 "use strict";
 const $view = document.getElementById("view");
