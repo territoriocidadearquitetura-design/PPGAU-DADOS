@@ -957,7 +957,7 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
 .dt-tm h4 { margin: 2px 0 6px; font-size: 16px; } .dt-tm ul { margin: 0; padding-left: 16px; font-size: 13px; color: var(--ink-2); display: grid; gap: 3px; }
 @media (max-width: 900px) { .dt-blocos { grid-template-columns: 1fr 1fr; } .dt-apt-g, .dt-crit { grid-template-columns: 1fr; } .dt-tl { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) { .dt-hero { grid-template-columns: 1fr; padding: 20px; } .dt-hero h2 { font-size: 24px; } .dt-gauge { width: 110px; height: 110px; } .dt-res-st, .dt-blocos, .dt-g2, .dt-tl { grid-template-columns: 1fr 1fr; } .dt-g2, .dt-blocos, .dt-tl { grid-template-columns: 1fr; } .dt-tl::before { display: none; } .dt-dl { grid-template-columns: 1fr auto; } .dt-da, .dt-do { display: none !important; } .dt-mx { grid-template-columns: 70px repeat(3, minmax(0, 1fr)); } .dt-mx .c { padding: 5px; } .dt-chip { font-size: 12px; padding: 2px 6px; } }
-.pa-abas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.pa-abas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
 .pa-abas button { text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 12px; padding: 12px 16px; cursor: pointer; display: grid; gap: 2px; font: inherit; }
 .pa-abas button b { color: var(--accent); font-size: 16px; } .pa-abas button span { font-size: 13px; color: var(--muted); }
 .pa-abas button[aria-selected="true"] { background: #02205f; border-color: #02205f; } .pa-abas button[aria-selected="true"] b { color: #febf01; } .pa-abas button[aria-selected="true"] span { color: #dfe6f5; }
@@ -1135,7 +1135,7 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
 .rx-tl { list-style: none; padding: 0; margin: 0 0 8px; display: grid; gap: 4px; } .rx-tl li { display: grid; grid-template-columns: 56px 1fr; gap: 8px; } .rx-tl b { color: #02205f; }
 .rc-tipo { display: inline-block; font: 700 13px var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: #02205f; background: #febf01; padding: 4px 10px; border-radius: 4px; margin: 0 0 12px; }
 @media print { .rel-sec.rx-sec { break-before: auto; margin-top: 26px; } .rel-capa + .rel-sec.rx-sec { margin-top: 0; } .pdf-menu { display: none !important; } .rx, .rx * { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .rx-sec .rx-fig, .rx-sec .rx-cx, .rx-sec .rx-kpis, .rx-sec tr { break-inside: avoid; } .rx-h, .rx-h3 { break-after: avoid; } }
-/* Análise da produção docente (painel administrativo) */
+/* Análise da produção docente (painel dos professores) */
 .an-l1 { --an: #1baf7a; } .an-l2 { --an: #2a78d6; } .an-l3 { --an: #eb6834; } .an-par { --an: #b9c2cd; } .an-fora { --an: #6f7c89; } .an-nao { --an: #e3e7ec; } .an-semlin { --an: #d9e0e7; }
 .an-q1 { --an: #104281; } .an-q2 { --an: #2a78d6; } .an-q3 { --an: #86b6ef; } .an-q4 { --an: #9aa5b1; } .an-q5 { --an: #dfe4ea; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .an-l1 { --an: #199e70; } :root:not([data-theme="light"]) .an-l2 { --an: #3987e5; } :root:not([data-theme="light"]) .an-l3 { --an: #d95926; } :root:not([data-theme="light"]) .an-par { --an: #56616d; } :root:not([data-theme="light"]) .an-fora { --an: #8794a1; } :root:not([data-theme="light"]) .an-semlin, :root:not([data-theme="light"]) .an-nao { --an: #3a4552; } :root:not([data-theme="light"]) .an-q1 { --an: #9ec5f4; } :root:not([data-theme="light"]) .an-q2 { --an: #3987e5; } :root:not([data-theme="light"]) .an-q3 { --an: #1c5cab; } :root:not([data-theme="light"]) .an-q4 { --an: #56616d; } :root:not([data-theme="light"]) .an-q5 { --an: #2a3541; } }
@@ -1204,7 +1204,7 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
 @media print { .an-tabs, .an-per, .an-filtros, #an-mais { display: none !important; } .an-met { display: block; } .an-met[open], .an-met { break-inside: avoid; } }
 </style>
 
-<div class="brandbar"><div class="wrap"><img class="lg-ppgau" src="logo-ppgau.png" alt="PPGAU, Programa de Pós-Graduação Stricto Sensu em Arquitetura e Urbanismo"><div class="bb-dir"><nav class="acesso" aria-label="Acesso restrito"><span class="ac-tit">Acesso restrito</span><button class="ac-b" type="button" id="ac-coord" data-tab="cadastro" data-grupo="coord"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 5h6M9 3h6v4H9zM6 5H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-1M8 12l2 2 4-4M8 17h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Painel da <b>coordenação</b></span><i class="ac-on" aria-hidden="true"></i></button><button class="ac-b" type="button" id="ac-adm" data-tab="capes" data-grupo="adm"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span>Painel <b>administrativo</b></span><i class="ac-on" aria-hidden="true"></i></button></nav><img class="lg-univag" src="logo-univag.png" alt="UNIVAG Centro Universitário"></div></div></div>
+<div class="brandbar"><div class="wrap"><img class="lg-ppgau" src="logo-ppgau.png" alt="PPGAU, Programa de Pós-Graduação Stricto Sensu em Arquitetura e Urbanismo"><div class="bb-dir"><nav class="acesso" aria-label="Acesso restrito"><span class="ac-tit">Acesso restrito</span><button class="ac-b" type="button" id="ac-coord" data-tab="cadastro" data-grupo="coord"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 5h6M9 3h6v4H9zM6 5H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-1M8 12l2 2 4-4M8 17h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Painel da <b>coordenação</b></span><i class="ac-on" aria-hidden="true"></i></button><button class="ac-b" type="button" id="ac-adm" data-tab="metas" data-grupo="adm"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span>Painel dos <b>professores</b></span><i class="ac-on" aria-hidden="true"></i></button></nav><img class="lg-univag" src="logo-univag.png" alt="UNIVAG Centro Universitário"></div></div></div>
 <div class="fixa" id="fixa" hidden><div class="wrap"><button class="fx-marca" type="button" id="fx-topo" aria-label="Voltar ao topo"><img src="logo-ppgau.png" alt=""><b>PPGAU UNIVAG <span>em dados</span></b></button><nav class="fx-nav" id="fx-nav" aria-label="Navegação rápida"></nav></div></div>
 <header class="band">
   <div class="wrap">
@@ -1349,7 +1349,7 @@ function irPara(b) {
   const clone = (b, curto) => { const c = document.createElement("button"); c.type = "button"; c.dataset.tab = b.dataset.tab; if (b.dataset.grupo) c.dataset.grupo = b.dataset.grupo; c.dataset.de = b.id; c.innerHTML = curto; c.onclick = () => irPara(b); return c; };
   fontes.forEach(b => nav.appendChild(clone(b, esc(b.textContent.replace(/até \d+\/\d+/, "").trim()))));
   const sep = document.createElement("span"); sep.className = "fx-sep"; nav.appendChild(sep);
-  acs.forEach(b => nav.appendChild(clone(b, b.querySelector("svg").outerHTML + `<span class="fx-lbl">${b.dataset.grupo === "adm" ? "Administrativo" : "Coordenação"}</span>`)));
+  acs.forEach(b => nav.appendChild(clone(b, b.querySelector("svg").outerHTML + `<span class="fx-lbl">${b.dataset.grupo === "adm" ? "Professores" : "Coordenação"}</span>`)));
   document.getElementById("fx-topo").onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
   const atualiza = () => { fx.hidden = hd.getBoundingClientRect().bottom > 0; };
   window.addEventListener("scroll", atualiza, { passive: true }); atualiza();
@@ -1369,13 +1369,16 @@ function syncAcesso() {
   b.onclick = () => { const alvo = document.querySelector(".pnav") || document.querySelector("nav.tabs"); if (alvo) alvo.scrollIntoView({ behavior: "smooth", block: "start" }); };
 })();
 
-// Painel administrativo (professores e gestão): Avaliação CAPES, Metas e Doutorado vêm cifrados em restrito.bin.
+// Painel dos professores (antes "painel administrativo"): Metas, Doutorado e Análise vêm cifrados em restrito.bin.
+// A Avaliação CAPES 2021–2024 fica no painel da coordenação (restrito_coord.bin, cifrado com a senha do painel da coordenação).
 // Sem a senha o conteúdo não existe no site: o navegador só consegue decifrar com ela (AES-GCM, chave PBKDF2).
-const ADM = [["capes", "Avaliação CAPES 2021–2024"], ["metas", "Metas 2025–2028"], ["doutorado", "Metas para o Doutorado"], ["analise", "Análise da produção docente"]];
+const ADM = [["metas", "Metas 2025–2028"], ["doutorado", "Metas para o Doutorado"], ["analise", "Análise da produção docente"]];
 const ICO_CADEADO = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>`;
 const admAberto = () => typeof renderMetas === "function" && typeof renderDoutorado === "function";
-async function admAbrir(senha) {
-  const r = await fetch("restrito.bin", { cache: "no-store" });
+async function admAbrir(senha) { await decifrarPacote("restrito.bin", senha); try { sessionStorage.setItem("ppgau-adm", senha); } catch (e) {} }
+// Decifra um pacote restrito e executa o código dele; sem a senha certa o conteúdo não existe na página.
+async function decifrarPacote(arq, senha) {
+  const r = await fetch(arq, { cache: "no-store" });
   if (!r.ok) throw new Error("rede");
   const d = await r.json(), b64 = x => Uint8Array.from(atob(x), c => c.charCodeAt(0));
   const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(senha), "PBKDF2", false, ["deriveKey"]);
@@ -1383,13 +1386,12 @@ async function admAbrir(senha) {
   let txt;
   try { txt = new TextDecoder().decode(await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(d.iv) }, chave, b64(d.ct))); } catch (e) { throw new Error("senha"); }
   const s = document.createElement("script"); s.textContent = txt; document.body.appendChild(s);
-  try { sessionStorage.setItem("ppgau-adm", senha); } catch (e) {}
 }
 function admSair() { try { sessionStorage.removeItem("ppgau-adm"); } catch (e) {} location.reload(); }
 function renderAdmLogin() {
   $view.innerHTML = `<div class="adm-login card">
     <span class="adm-ic">${ICO_CADEADO}</span>
-    <h2>Painel administrativo</h2>
+    <h2>Painel dos professores</h2>
     <form id="adm-f"><label for="adm-s">Senha</label><div class="adm-row"><input id="adm-s" type="password" autocomplete="current-password" required><button class="btn primary" type="submit">Entrar</button></div><p class="small adm-msg" id="adm-m" role="alert"></p></form>
   </div>`;
   const f = document.getElementById("adm-f"), m = document.getElementById("adm-m"), i = document.getElementById("adm-s");
@@ -1403,6 +1405,7 @@ function renderAdmLogin() {
 (() => { let s = null; try { s = sessionStorage.getItem("ppgau-adm"); } catch (e) {} if (s) admAbrir(s).then(() => { if (ADM.some(a => a[0] === st.tab)) render(); else syncAcesso(); }).catch(() => { try { sessionStorage.removeItem("ppgau-adm"); } catch (e) {} }); })();
 
 function render() {
+  if (st.tab === "capes") { st.tab = "cadastro"; st.painelAba = "capes"; } // endereço antigo: a Avaliação CAPES agora fica no painel da coordenação
   const AUTO = [["responder", "Responder aos questionários"], ["resultados", "Resultados"], ["sobre", "Sobre a coleta"]];
   const naAuto = AUTO.some(a => a[0] === st.tab), naAdm = ADM.some(a => a[0] === st.tab), naCoord = st.tab === "cadastro";
   if (naAdm) st.ultAdm = st.tab;
@@ -1411,23 +1414,22 @@ function render() {
   $sub.hidden = !naAuto && !naCoord && !(naAdm && admAberto());
   $sub.classList.remove("narrow");
   if (naAdm && admAberto()) {
-    $sub.innerHTML = `<div class="subnav" role="tablist" aria-label="Painel administrativo"><span class="adm-tit">${ICO_CADEADO}Painel administrativo</span>${ADM.map(([k, t]) => `<button role="tab" data-sub="${k}" aria-selected="${k === st.tab}">${t}</button>`).join("")}<button class="adm-sair" data-adm-sair>Sair</button></div>`;
+    $sub.innerHTML = `<div class="subnav" role="tablist" aria-label="Painel dos professores"><span class="adm-tit">${ICO_CADEADO}Painel dos professores</span>${ADM.map(([k, t]) => `<button role="tab" data-sub="${k}" aria-selected="${k === st.tab}">${t}</button>`).join("")}<button class="adm-sair" data-adm-sair>Sair</button></div>`;
     $sub.querySelectorAll("[data-sub]").forEach(b => b.onclick = () => { st.tab = b.dataset.sub; render(); });
     $sub.querySelector("[data-adm-sair]").onclick = admSair;
   }
-  if (naCoord) $sub.innerHTML = `<div class="subnav" aria-label="Painel da coordenação"><span class="adm-tit" style="width:auto">${ICO_CADEADO}${st.podeEditar ? "Participação (coordenação)" : "Painel da coordenação"}</span><span class="small muted">Participação e acompanhamento da autoavaliação 2026</span></div>`;
+  if (naCoord) $sub.innerHTML = `<div class="subnav" aria-label="Painel da coordenação"><span class="adm-tit" style="width:auto">${ICO_CADEADO}${st.podeEditar ? "Participação (coordenação)" : "Painel da coordenação"}</span><span class="small muted">Autoavaliação 2026 e Avaliação CAPES 2021–2024</span></div>`;
   if (naAuto) {
     $sub.innerHTML = `<div class="subnav" role="tablist" aria-label="Autoavaliação">${AUTO.map(([k, t]) => `<button role="tab" data-sub="${k}" aria-selected="${k === st.tab}">${t}</button>`).join("")}</div>`;
     $sub.querySelectorAll("[data-sub]").forEach(b => b.onclick = () => { st.tab = b.dataset.sub; if (st.tab === "responder") st.etapa = "inicio"; render(); });
   }
   $view.classList.toggle("narrow", st.tab === "responder" && st.etapa !== "inicio" && !!st.pub);
   syncPdf();
-  const $rel = document.getElementById("pdf-rel"); if ($rel) $rel.lastChild.textContent = naAdm && admAberto() ? "Relatório executivo administrativo (PDF)" : "Relatório executivo (PDF)";
+  const $rel = document.getElementById("pdf-rel"); if ($rel) $rel.lastChild.textContent = naAdm && admAberto() ? "Relatório executivo do painel dos professores (PDF)" : "Relatório executivo (PDF)";
   if (naAdm && !admAberto()) renderAdmLogin();
   else if (st.tab === "portal") renderPortal();
   else if (st.tab === "responder") renderResponder();
   else if (st.tab === "resultados") renderResultados();
-  else if (st.tab === "capes") renderEmDados();
   else if (st.tab === "cadastro") renderCadastros();
   else if (st.tab === "metas") renderMetas();
   else if (st.tab === "doutorado") renderDoutorado();
@@ -1780,6 +1782,7 @@ function renderCadastros() {
   }
   if (!st.podeEditar && !st.painelDados) { $view.innerHTML = `<div class="card empty-state"><h3>Área da coordenação</h3><p>O cadastro de participantes é visível apenas para quem administra a página.</p></div>`; return; }
   if (st.painelDados && st.painelAba === "resp") return renderAcompanhar();
+  if (st.painelDados && st.painelAba === "capes") return renderCoordCapes();
   const lista = st.cadastros.slice().sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
   const cont = id => lista.filter(c => (c.publicos || []).includes(id)).length;
   // Quem já participou, por público, comparado com a lista de pessoas do programa. Só nome e e-mail; as respostas ficam em outra base, sem vínculo.
@@ -1826,7 +1829,22 @@ function renderCadastros() {
 function abasPainel() {
   if (!st.painelDados) return "";
   const a = st.painelAba || "part";
-  return `<div class="pa-abas" role="tablist">${[["part", "Participação", "quem já respondeu"], ["resp", "Acompanhar respostas", "gráficos por tema e relatório parcial"]].map(([id, t, sub]) => `<button role="tab" aria-selected="${a === id}" data-pa="${id}"><b>${t}</b><span>${sub}</span></button>`).join("")}</div>`;
+  return `<div class="pa-abas" role="tablist">${[["part", "Participação", "quem já respondeu"], ["resp", "Acompanhar respostas", "gráficos por tema e relatório parcial"], ["capes", "Avaliação CAPES 2021–2024", "resultado da Quadrienal 2025"]].map(([id, t, sub]) => `<button role="tab" aria-selected="${a === id}" data-pa="${id}"><b>${t}</b><span>${sub}</span></button>`).join("")}</div>`;
+}
+// Avaliação CAPES 2021–2024 no painel da coordenação: registro fixo do resultado da Quadrienal 2025.
+function renderCoordCapes() {
+  if (!BASE.quesitos.length) {
+    if (!st.capesBusy && !st.capesErro) {
+      st.capesBusy = true;
+      decifrarPacote("restrito_coord.bin", senhaPainel()).catch(e => { st.capesErro = e.message === "senha" ? "senha" : "rede"; })
+        .finally(() => { st.capesBusy = false; if (st.tab === "cadastro" && st.painelAba === "capes") renderCadastros(); });
+    }
+    $view.innerHTML = abasPainel() + (st.capesErro ? `<div class="card empty-state"><h3>Não foi possível abrir a Avaliação CAPES</h3><p>${st.capesErro === "senha" ? "O conteúdo desta aba ainda não foi preparado para a senha atual do painel. Avise quem mantém o site." : "Verifique a conexão e atualize a página."}</p></div>` : `<div class="card empty-state"><h3>Carregando a Avaliação CAPES…</h3></div>`);
+    ligarAbasPainel(); return;
+  }
+  renderEmDados(true);
+  $view.insertAdjacentHTML("afterbegin", abasPainel() + `<p class="small muted" style="margin:-6px 0 14px">Registro do resultado da Quadrienal 2025 (ciclo 2021–2024). É um resultado já publicado pela CAPES e não muda.</p>`);
+  ligarAbasPainel();
 }
 function ligarAbasPainel() { $view.querySelectorAll("[data-pa]").forEach(b => b.onclick = () => { st.painelAba = b.dataset.pa; renderCadastros(); window.scrollTo(0, $view.offsetTop - 20); }); }
 async function carregarAcompanhar() {
@@ -2559,7 +2577,7 @@ function gerarRelatorio(adm, anexos) {
       <div class="rc-logos"><img src="logo-ppgau.png" alt="PPGAU"><img src="logo-univag.png" alt="UNIVAG"></div>
       <div>
         <h1>PPGAU UNIVAG <span>em dados</span></h1>
-        <p class="rc-tipo">${adm ? "Relatório executivo administrativo · uso restrito" : "Relatório executivo"}</p>
+        <p class="rc-tipo">${adm ? "Relatório executivo do painel dos professores · uso restrito" : "Relatório executivo"}</p>
         ${adm ? `<p class="rc-sub">Leitura de gestão para a coordenação e os professores do programa: situação na avaliação CAPES, caminho para a nota 4, metas do quadriênio, condições para o doutorado e análise da produção docente, com recomendações e as fontes de cada indicador.</p>` : `<p class="rc-sub">Análise dos indicadores do Programa de Pós-Graduação Stricto Sensu em Arquitetura e Urbanismo do UNIVAG Centro Universitário: trajetória, corpo docente, formação, produção, impacto e autoavaliação, com as fontes citadas em cada seção.</p>`}
         <h3 style="margin:24px 0 6px;font-size:14px;color:#02205f;text-transform:uppercase;letter-spacing:.08em">Conteúdo</h3>
         <ol>${exec.map(p => `<li>${esc(p.titulo)}</li>`).join("")}${partes.length ? `<li>Anexos: páginas do portal (${partes.length})</li>` : ""}</ol>
@@ -2648,11 +2666,13 @@ function lerHash() {
   const p = location.hash.replace(/^#\/?/, "").split("/").filter(Boolean).map(x => { try { return decodeURIComponent(x); } catch (e) { return x; } });
   if (!p.length || !ABAS_OK.includes(p[0])) return false;
   st.tab = p[0];
+  if (p[0] === "capes") { st.tab = "cadastro"; st.painelAba = "capes"; }
   if (p[0] === "portal") { st.psec = p[1] || "inicio"; st.docente = p[1] === "docentes" && p[2] ? p[2] : null; st.pessoa = null; }
   if (p[0] === "analise") st.asub = p[1] || st.asub;
   return true;
 }
 function hashAtual() {
+  if (st.tab === "cadastro" && st.painelAba === "capes") return "#/capes";
   let h = "#/" + st.tab;
   if (st.tab === "portal") { h += "/" + st.psec; if (st.psec === "docentes" && st.docente) h += "/" + encodeURIComponent(st.docente); }
   if (st.tab === "analise" && st.asub) h += "/" + st.asub;

@@ -306,7 +306,7 @@ const PG_DOCS = [
   ["Produção e difusão", [["Dissertações defendidas", "https://www.univag-ppgau.com/dissertacao-defendidas"], ["Repositório digital das dissertações", "https://www.repositoriodigital.univag.com.br/index.php/mestradoarq/issue/archive"], ["Revista Vernácula", "https://periodicos.univag.com.br/index.php/Vernacula/index"], ["Produção em periódicos (PDF)", "https://www.univag-ppgau.com/_files/ugd/036f6f_3823c18f1f2a4a22b7c201f32e1bb84f.pdf"], ["Eventos", "https://www.univag-ppgau.com/eventos"]]]
 ];
 
-function renderEmDados() {
+function renderEmDados(soCapesCoord) {
   const resp = respostasValidas().length;
   const k = BASE.kpis || [];
   const secoes = [
@@ -318,8 +318,8 @@ function renderEmDados() {
     ["impacto", "Impacto", typeof IMPACTO === "object"],
     ["fontes", "Fontes", true]
   ].filter(x => x[2]);
-  // A Avaliação CAPES 2021–2024 tem aba própria no menu principal (resultado já concluído); as demais seções ficam em Em dados.
-  const soCapes = st.tab === "capes";
+  // A Avaliação CAPES 2021–2024 fica só no painel da coordenação (resultado já concluído, não muda); as demais seções ficam em Em dados.
+  const soCapes = !!soCapesCoord;
   const navSec = secoes.filter(x => x[0] !== "capes");
   if (!soCapes && st.psec === "capes") st.psec = "inicio";
   const atual = soCapes ? "capes" : st.psec;
