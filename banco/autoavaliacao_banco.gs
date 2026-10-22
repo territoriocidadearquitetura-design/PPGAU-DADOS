@@ -1,6 +1,6 @@
 /**
  * Autoavaliação PPGAU/UNIVAG 2026: banco de dados e painel da coordenação.
- * Desenvolvimento e organização: Profa. Dra. Sandra Medina Benini.
+ * Desenvolvimento, programação e implementação do website institucional: Profa. Dra. Sandra Medina Benini (PPGAU/UNIVAG, 2026).
  *
  * O QUE ESTE ARQUIVO FAZ
  * - Publica um site de respostas (funciona no celular, sem login, para qualquer pessoa).
