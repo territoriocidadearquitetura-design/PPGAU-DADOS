@@ -239,6 +239,13 @@ textarea { min-height: 96px; resize: vertical; }
 .srow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) 92px; gap: 6px 14px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); }
 .srow:first-of-type { border-top: 0; }
 .srow .lab { font-size: 14px; min-width: 0; }
+.vcols { display: grid; grid-template-columns: repeat(var(--nc, 5), 1fr); gap: 6px; height: 96px; align-items: stretch; border-bottom: 1px solid var(--muted); padding: 0 4px; }
+.vcols .vc { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; cursor: default; min-width: 0; }
+.vcols .vp { font-size: 11px; font-weight: 700; color: var(--ink-2); line-height: 1; padding-bottom: 3px; }
+.vcols .vb { width: 70%; max-width: 34px; border-radius: 3px 3px 0 0; flex: 0 0 auto; }
+.vcols .vx { position: absolute; bottom: -17px; font-size: 11px; color: var(--muted); }
+.srow:has(.vcols) { padding-bottom: 24px; }
+.vcols.empty { background: repeating-linear-gradient(45deg, var(--line) 0 2px, transparent 2px 6px); }
 .stack { display: flex; gap: 2px; height: 16px; min-width: 0; }
 .stack span { border-radius: 2px; min-width: 2px; cursor: default; }
 .stack.empty { background: repeating-linear-gradient(45deg, var(--line) 0 2px, transparent 2px 6px); border-radius: 2px; }
@@ -581,7 +588,7 @@ body:has(.kpis) header.band { padding-bottom: 56px; }
 }
 @media (max-width: 640px) {
   .srow { grid-template-columns: minmax(0, 1fr) 80px; }
-  .srow .stack { grid-column: 1 / -1; grid-row: 2; }
+  .srow .stack { grid-column: 1 / -1; grid-row: 2; } .srow .vcols { grid-column: 1 / -1; grid-row: 2; }
   .bar { grid-template-columns: minmax(0, 1fr) 64px; }
   .bar .track { grid-column: 1 / -1; grid-row: 2; }
 }
@@ -2219,16 +2226,18 @@ function stackHtml(c, scale, rotulo) {
   const { cats, valid, E, nresp } = c;
   const curto = l => l.startsWith("Não tenho informações") ? "Sem informação" : l.startsWith("Não tenho experiência") ? "Sem base para comparar" : l;
   const aux = cats.slice(E.validos).filter(x => x.n).map(x => `${curto(x.label)}: ${x.n}`).join(" · ");
-  const segs = valid ? cats.slice(0, E.validos).map((x, i) => x.n ? `<span style="flex:${x.n};background:${cor(scale, i)}" data-tip="${esc(rotulo)}&#10;${esc(x.label)}: ${x.n} (${pct(x.n, valid)}%)"></span>` : "").join("") : "";
+  // Barras verticais: uma coluna por alternativa válida, altura = percentual sobre as respostas válidas (0 a 100%).
+  const vals = cats.slice(0, E.validos), mx = Math.max(1, ...vals.map(x => x.n));
+  const cols = vals.map((x, i) => `<div class="vc" data-tip="${esc(rotulo)}&#10;${esc(x.label)}: ${x.n} (${pct(x.n, valid)}%)"><span class="vp">${valid && x.n ? pct(x.n, valid) + "%" : ""}</span><span class="vb" style="height:${x.n ? Math.max(3, Math.round(x.n / valid * 66)) : 0}px;background:${cor(scale, i)}"></span><span class="vx">${i + 1}</span></div>`).join("");
   const label = `${cats.slice(0, E.validos).map(x => `${x.label}: ${x.n}`).join(", ")}${aux ? "; " + aux : ""}`;
-  return { html: `<div class="stack${valid ? "" : " empty"}" role="img" aria-label="${esc(label)}">${segs}</div>`, aux, nresp };
+  return { html: `<div class="vcols${valid ? "" : " empty"}" role="img" aria-label="${esc(label)}" style="--nc:${E.validos}">${cols}</div>`, aux, nresp };
 }
 function legenda(scale) {
   const E = ESCALAS[scale];
   const nota = scale === "M" ? "Saldo = % melhorou − % piorou, sobre respostas válidas."
     : scale === "C" ? "Percentual de “Disponível e suficiente” sobre respostas válidas."
     : "Média de 1 a 5 sobre respostas válidas.";
-  return `<div class="legend">${E.opts.slice(0, E.validos).map((o, i) => `<span><i style="background:${cor(scale, i)}"></i>${esc(o)}</span>`).join("")}<span class="muted">${nota} “Não se aplica” e “Sem informação” ficam fora do cálculo.</span></div>`;
+  return `<div class="legend">${E.opts.slice(0, E.validos).map((o, i) => `<span><i style="background:${cor(scale, i)}"></i>${i + 1} ${esc(o)}</span>`).join("")}<span class="muted">${nota} “Não se aplica” e “Sem informação” ficam fora do cálculo.</span></div>`;
 }
 
 function linhaEscala(rot, n, c, scale) {
