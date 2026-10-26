@@ -255,7 +255,7 @@ if (!window.__lchartHover) {
 }
 function pilha(p, anos) {
   const tot = p.anos.map(a => a.reduce((x, y) => x + y, 0)), max = Math.max(...tot);
-  return `<div class="stack" role="img" aria-label="${anos.map((a, i) => `${a}: ${p.partes.map((n, j) => `${n} ${p.anos[i][j]}`).join(", ")}`).join("; ")}">${p.anos.map((v, i) => `<div class="sc"><span class="v">${tot[i]}</span><span class="t" style="height:${tot[i] / max * 100}%">${v.map((x, j) => x ? `<i class="p${j}" style="flex:${x}" title="${esc(p.partes[j])}: ${x}"></i>` : "").join("")}</span><span class="x">${esc(anos[i])}</span></div>`).join("")}</div><div class="leg">${p.partes.map((n, j) => `<span><i class="p${j}"></i>${esc(n)}</span>`).join("")}</div>`;
+  return `<div class="pstack" role="img" aria-label="${anos.map((a, i) => `${a}: ${p.partes.map((n, j) => `${n} ${p.anos[i][j]}`).join(", ")}`).join("; ")}">${p.anos.map((v, i) => `<div class="sc"><span class="v">${tot[i]}</span><span class="t" style="height:${tot[i] / max * 100}%">${v.map((x, j) => x ? `<i class="p${j}" style="flex:${x}" title="${esc(p.partes[j])}: ${x}"></i>` : "").join("")}</span><span class="x">${esc(anos[i])}</span></div>`).join("")}</div><div class="leg">${p.partes.map((n, j) => `<span><i class="p${j}"></i>${esc(n)}</span>`).join("")}</div>`;
 }
 function serieCard(chave, titulo, nota) {
   const s = BASE.series[chave];
