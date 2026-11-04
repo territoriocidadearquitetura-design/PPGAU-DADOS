@@ -1803,19 +1803,25 @@ function renderCadastros() {
   const PS = typeof PESSOAS === "object" ? PESSOAS : [];
   // Lista de convidados sempre a do portal (PESSOAS, revisada pelos Lattes), não a guardada no Apps Script.
   const esperados = listaEsperados();
-  const achou = (nome, id) => lista.find(c => (c.publicos || []).includes(id) && (nz(c.nome) === nz(nome) || (nz(c.nome).split(" ")[0] === nz(nome).split(" ")[0] && nz(c.nome).split(" ").pop() === nz(nome).split(" ").pop())));
+  // Mesmo nome: igual, ou mesmo primeiro nome e último sobrenome com até uma letra de diferença (Morais/Moraes).
+  const dist1 = (a, b) => { if (a === b) return true; if (Math.abs(a.length - b.length) > 1) return false; let i = 0, j = 0, d = 0; while (i < a.length && j < b.length) { if (a[i] === b[j]) { i++; j++; continue; } if (++d > 1) return false; if (a.length > b.length) i++; else if (b.length > a.length) j++; else { i++; j++; } } return d + (a.length - i) + (b.length - j) <= 1; };
+  const mesmo = (x, y) => { const a = nz(x).split(" "), b = nz(y).split(" "); return a.join(" ") === b.join(" ") || (a[0] === b[0] && a.length > 1 && b.length > 1 && dist1(a[a.length - 1], b[b.length - 1])); };
+  // Primeiro procura no questionário do grupo; se a pessoa respondeu outro (egressa que marcou "Estudantes"), também conta, com aviso.
+  const achou = (nome, id) => lista.find(c => (c.publicos || []).includes(id) && mesmo(c.nome, nome)) || lista.find(c => mesmo(c.nome, nome) && !(c.publicos || []).some(x => x === "D" || x === "E") && !esperados.some(([gid, , ns]) => gid !== id && (c.publicos || []).includes(gid) && ns.some(n => mesmo(c.nome, n))));
   const grupos = esperados.map(([id, t, nomes]) => { const l = nomes.map(n => ({ n, c: achou(n, id) })); return { id, t, l, ok: l.filter(x => x.c).length }; });
+  // Gestão (E) e equipe técnica (D) não têm lista prévia de convidados: entram todos os cadastrados nesses questionários.
+  ["E", "D"].forEach(id => { const p = pubById(id); const l = lista.filter(c => (c.publicos || []).includes(id)).map(c => ({ n: c.nome, c })); grupos.push({ id, t: p ? p.curto || p.nome : id, l, ok: l.length, aberto: true }); });
   const conhecidos = new Set(grupos.flatMap(g => g.l.filter(x => x.c).map(x => x.c.id)));
   const outros = lista.filter(c => !conhecidos.has(c.id));
   st.partGrupo = st.partGrupo || "B";
   const g = grupos.find(x => x.id === st.partGrupo) || grupos[0];
   const painel = `${st.painelDados ? `<div class="row" style="justify-content:flex-end;gap:8px;margin-bottom:10px"><button class="btn small" id="painel-pdf">Imprimir lista de participação (PDF)</button><button class="btn small" id="painel-atu">Atualizar</button><button class="btn small" id="painel-sair">Sair</button></div>` : LINK_BANCO ? `<div class="card" style="display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap"><div><strong>Painel oficial da participação</strong><p class="small muted" style="margin:2px 0 0">As respostas de 2026 são gravadas na planilha do programa (Google). O painel mostra quem respondeu e pede a senha do painel.</p></div><a class="btn" href="${LINK_BANCO}?p=admin" target="_blank" rel="noopener">Abrir painel ↗</a></div>` : ""}
     <div class="prose" style="margin-bottom:14px"><h2 style="font-size:24px">Participação na autoavaliação</h2><p class="muted">Quem já se identificou ao responder, comparado com a lista de pessoas do programa. Esta página mostra apenas nome, e-mail e Lattes. As respostas ficam em outra base, sem nome e sem vínculo com o cadastro: ninguém, nem a coordenação, consegue saber o que cada pessoa respondeu.</p></div>
-    <div class="part-g">${grupos.map(x => `<button class="part-t ${x.id === g.id ? "on" : ""}" data-pg2="${x.id}"><span class="dim">${esc(x.t)}</span><b>${x.ok}<small> de ${x.l.length}</small></b><span class="mbar"><span style="width:${x.l.length ? Math.round(100 * x.ok / x.l.length) : 0}%"></span></span></button>`).join("")}</div>
-    <div class="card"><div class="dim" style="margin-bottom:8px">${esc(g.t)}: ${g.ok} participaram, ${g.l.length - g.ok} pendentes</div>
-      <ul class="part-l">${g.l.sort((a, b) => (!!a.c - !!b.c) || a.n.localeCompare(b.n, "pt-BR")).map(x => `<li class="${x.c ? "ok" : "pend"}"><span class="pi">${x.c ? "✓" : "…"}</span><span><strong>${esc(x.n)}</strong>${x.c ? `<small>${esc(x.c.email || "")}${x.c.atualizadoEm ? " · " + esc(new Date(x.c.atualizadoEm).toLocaleDateString("pt-BR")) : ""}</small>` : `<small>ainda não respondeu</small>`}</span></li>`).join("")}</ul>
-      <p class="fonte">Comparação pelo nome informado no cadastro. Quem escreveu o nome de outro jeito aparece em "Outros cadastros", abaixo.</p></div>
-    ${outros.length ? `<div class="card"><div class="dim" style="margin-bottom:6px">Outros cadastros (${outros.length})</div><p class="small muted" style="margin:0 0 6px">Técnicos, gestão ou nomes escritos de forma diferente da lista do programa.</p><ul class="part-l">${outros.map(c => `<li class="ok"><span class="pi">✓</span><span><strong>${esc(c.nome)}</strong><small>${esc(c.email || "")} · ${(c.publicos || []).map(id => esc((pubById(id) || {}).curto || id)).join(", ")}</small></span></li>`).join("")}</ul></div>` : ""}
+    <div class="part-g">${grupos.map(x => `<button class="part-t ${x.id === g.id ? "on" : ""}" data-pg2="${x.id}"><span class="dim">${esc(x.t)}</span><b>${x.ok}<small>${x.aberto ? " responderam" : " de " + x.l.length}</small></b><span class="mbar"><span style="width:${x.aberto ? (x.ok ? 100 : 0) : x.l.length ? Math.round(100 * x.ok / x.l.length) : 0}%"></span></span></button>`).join("")}</div>
+    <div class="card"><div class="dim" style="margin-bottom:8px">${esc(g.t)}: ${g.ok} participaram${g.aberto ? " (sem lista prévia de convidados)" : `, ${g.l.length - g.ok} pendentes`}</div>${g.aberto && !g.l.length ? `<p class="small muted" style="margin:0">Ninguém se cadastrou neste questionário até agora.</p>` : ""}
+      <ul class="part-l">${g.l.sort((a, b) => (!!a.c - !!b.c) || a.n.localeCompare(b.n, "pt-BR")).map(x => `<li class="${x.c ? "ok" : "pend"}"><span class="pi">${x.c ? "✓" : "…"}</span><span><strong>${esc(x.n)}</strong>${x.c ? `<small>${esc(x.c.email || "")}${x.c.atualizadoEm ? " · " + esc(new Date(x.c.atualizadoEm).toLocaleDateString("pt-BR")) : ""}${!(x.c.publicos || []).includes(g.id) ? ` · respondeu o questionário ${esc((x.c.publicos || []).map(id => (pubById(id) || {}).curto || id).join(", "))}` : ""}${nz(x.c.nome) !== nz(x.n) && !g.aberto ? ` · cadastrado como “${esc(x.c.nome)}”` : ""}</small>` : `<small>ainda não respondeu</small>`}</span></li>`).join("")}</ul>
+      <p class="fonte">Comparação pelo nome informado no cadastro. Pequenas diferenças de grafia (Morais/Moraes) e quem respondeu o questionário de outro público também contam; o nome cadastrado aparece ao lado. Gestão e equipe técnica não têm lista prévia.</p></div>
+    ${outros.length ? `<div class="card"><div class="dim" style="margin-bottom:6px">Outros cadastros (${outros.length})</div><p class="small muted" style="margin:0 0 6px">Nomes que não foram encontrados na lista do programa.</p><ul class="part-l">${outros.map(c => `<li class="ok"><span class="pi">✓</span><span><strong>${esc(c.nome)}</strong><small>${esc(c.email || "")} · ${(c.publicos || []).map(id => esc((pubById(id) || {}).curto || id)).join(", ")}</small></span></li>`).join("")}</ul></div>` : ""}
     <h3 class="mq" style="margin-top:22px">Lista completa do cadastro</h3>`;
   $view.innerHTML = abasPainel() + painel + `
     <div class="tiles">${PUBLICOS.map(x => `<div class="tile" style="cursor:default"><span class="dim">Questionário ${x.id}</span><span class="num">${cont(x.id)}</span><span class="lbl">${esc(x.curto)} cadastrados</span></div>`).join("")}</div>
@@ -2640,16 +2646,18 @@ document.getElementById("pdf-pag").onclick = imprimirPagina;
 // Relatório impresso da participação (painel da coordenação): por categoria, quem respondeu e quem falta.
 function imprimirParticipacao(grupos, outros) {
   const dt = d => esc(String(d || "").slice(0, 10).split("-").reverse().join("/"));
-  const tot = grupos.reduce((a, g) => a + g.l.length, 0), ok = grupos.reduce((a, g) => a + g.ok, 0);
+  const lst = grupos.filter(g => !g.aberto), abertos = grupos.filter(g => g.aberto);
+  const tot = lst.reduce((a, g) => a + g.l.length, 0), ok = lst.reduce((a, g) => a + g.ok, 0);
   const rel = document.getElementById("relatorio");
   rel.innerHTML = `
     <div class="part-rel">
       <div class="pr-head"><img src="logo-ppgau.png" alt="PPGAU"><div><b>Autoavaliação 2026 · Lista de participação</b><span>PPGAU/UNIVAG · uso interno da coordenação · gerado em ${esc(hojeBR())} · prazo prorrogado até 08/11/2026</span></div><img src="logo-univag.png" alt="UNIVAG"></div>
       <table class="pr-res"><thead><tr><th>Categoria</th><th>Responderam</th><th>Pendentes</th><th>Total</th><th>Participação</th></tr></thead><tbody>
-        ${grupos.map(g => `<tr><td>${esc(g.t)}</td><td>${g.ok}</td><td>${g.l.length - g.ok}</td><td>${g.l.length}</td><td>${g.l.length ? Math.round(100 * g.ok / g.l.length) : 0}%</td></tr>`).join("")}
-        <tr class="pr-tot"><td>Total</td><td>${ok}</td><td>${tot - ok}</td><td>${tot}</td><td>${tot ? Math.round(100 * ok / tot) : 0}%</td></tr>
+        ${lst.map(g => `<tr><td>${esc(g.t)}</td><td>${g.ok}</td><td>${g.l.length - g.ok}</td><td>${g.l.length}</td><td>${g.l.length ? Math.round(100 * g.ok / g.l.length) : 0}%</td></tr>`).join("")}
+        <tr class="pr-tot"><td>Total com lista de convidados</td><td>${ok}</td><td>${tot - ok}</td><td>${tot}</td><td>${tot ? Math.round(100 * ok / tot) : 0}%</td></tr>
+        ${abertos.map(g => `<tr><td>${esc(g.t)}</td><td>${g.ok}</td><td>–</td><td>–</td><td>sem lista prévia</td></tr>`).join("")}
       </tbody></table>
-      ${grupos.map(g => {
+      ${lst.map(g => {
         const resp = g.l.filter(x => x.c).sort((a, b) => a.n.localeCompare(b.n, "pt-BR")), pend = g.l.filter(x => !x.c).sort((a, b) => a.n.localeCompare(b.n, "pt-BR"));
         return `<section class="pr-g"><h2>${esc(g.t)} <small>${g.ok} de ${g.l.length} responderam</small></h2>
           <div class="pr-cols">
@@ -2657,7 +2665,8 @@ function imprimirParticipacao(grupos, outros) {
             <div><h3 class="pend">Ainda não responderam (${pend.length})</h3>${pend.length ? `<ol>${pend.map(x => `<li>${esc(x.n)}</li>`).join("")}</ol>` : `<p class="pr-vazio">Todos responderam.</p>`}</div>
           </div></section>`;
       }).join("")}
-      ${outros.length ? `<section class="pr-g"><h2>Outros registros <small>equipe técnica, gestão ou nomes escritos de outra forma</small></h2><table><thead><tr><th>Nome</th><th>E-mail</th><th>Questionário</th><th>Data</th></tr></thead><tbody>${outros.map(c => `<tr><td>${esc(c.nome)}</td><td>${esc(c.email || "")}</td><td>${(c.publicos || []).map(id => esc((pubById(id) || {}).curto || id)).join(", ")}</td><td>${dt(c.atualizadoEm || c.criadoEm)}</td></tr>`).join("")}</tbody></table></section>` : ""}
+      ${abertos.map(g => `<section class="pr-g"><h2>${esc(g.t)} <small>${g.ok} responderam · sem lista prévia de convidados</small></h2>${g.l.length ? `<table><thead><tr><th>Nome</th><th>E-mail</th><th>Data</th></tr></thead><tbody>${g.l.map(x => `<tr><td>${esc(x.n)}</td><td>${esc(x.c.email || "")}</td><td>${dt(x.c.atualizadoEm || x.c.criadoEm)}</td></tr>`).join("")}</tbody></table>` : `<p class="pr-vazio">Ninguém se cadastrou neste questionário até agora.</p>`}</section>`).join("")}
+      ${outros.length ? `<section class="pr-g"><h2>Outros registros <small>nomes não encontrados na lista do programa</small></h2><table><thead><tr><th>Nome</th><th>E-mail</th><th>Questionário</th><th>Data</th></tr></thead><tbody>${outros.map(c => `<tr><td>${esc(c.nome)}</td><td>${esc(c.email || "")}</td><td>${(c.publicos || []).map(id => esc((pubById(id) || {}).curto || id)).join(", ")}</td><td>${dt(c.atualizadoEm || c.criadoEm)}</td></tr>`).join("")}</tbody></table></section>` : ""}
       <p class="pr-nota">Comparação feita pelo nome informado no cadastro com a lista de pessoas do programa. As respostas ficam em outra tabela, sem identificação e sem vínculo com esta lista. Documento de uso interno: contém dados pessoais.</p>
     </div>`;
   rel.hidden = false; document.body.classList.add("rel-on"); marcarQuebras(rel);
