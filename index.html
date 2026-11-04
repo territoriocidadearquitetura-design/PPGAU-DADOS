@@ -1226,7 +1226,7 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
     <p class="atz-top" id="atz-top"></p>
     <nav class="tabs" role="tablist">
       <button id="tab-portal" role="tab" aria-selected="true" data-tab="portal">Em dados</button>
-      <button id="tab-auto" role="tab" aria-selected="false" data-tab="responder" data-grupo="auto"><span class="ta-dot" aria-hidden="true"></span>Autoavaliação <span class="ta-badge">até 03/11</span></button>
+      <button id="tab-auto" role="tab" aria-selected="false" data-tab="responder" data-grupo="auto"><span class="ta-dot" aria-hidden="true"></span>Autoavaliação <span class="ta-badge">prorrogado até 08/11</span></button>
     </nav>
     <div class="pdfbar" id="pdfbar"><button class="pdf-b" id="pdf-pag" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1h-2M7 14h10v7H7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>PDF desta página</button><button class="pdf-b forte" id="pdf-rel" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8zM14 3v5h5M9 13h6M9 17h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Relatório executivo (PDF)</button><div class="pdf-menu" id="pdf-menu" role="menu" hidden><button type="button" role="menuitem" data-rel="exec"><b>Relatório executivo</b><small>Análise escrita com gráficos e fontes</small></button><button type="button" role="menuitem" data-rel="anexo"><b>Executivo com anexos</b><small>Inclui todas as páginas do portal no final</small></button></div></div>
   </div>
@@ -1264,20 +1264,20 @@ header .pdfbar .pdf-b.forte { background: #fff; color: #02205f; border-color: #f
 </footer>
 <div id="tip" hidden></div>
 
-<script src="questoes.js?v=20261026"></script>
-<script src="ficha.js?v=20261026"></script>
-<script src="portal.js?v=20261026"></script>
-<script src="emdados.js?v=20261026"></script>
-<script src="fichas.js?v=20261026"></script>
-<script src="qualis.js?v=20261026"></script>
-<script src="impacto.js?v=20261026"></script>
-<script src="pessoas.js?v=20261026"></script>
-<script src="historia.js?v=20261026"></script>
-<script src="icl.js?v=20261026"></script>
-<script src="prodlattes.js?v=20261026"></script>
-<script src="projlattes.js?v=20261026"></script>
-<script src="prod.js?v=20261026"></script>
-<script src="relatorio.js?v=20261026"></script>
+<script src="questoes.js?v=20261104"></script>
+<script src="ficha.js?v=20261104"></script>
+<script src="portal.js?v=20261104"></script>
+<script src="emdados.js?v=20261104"></script>
+<script src="fichas.js?v=20261104"></script>
+<script src="qualis.js?v=20261104"></script>
+<script src="impacto.js?v=20261104"></script>
+<script src="pessoas.js?v=20261104"></script>
+<script src="historia.js?v=20261104"></script>
+<script src="icl.js?v=20261104"></script>
+<script src="prodlattes.js?v=20261104"></script>
+<script src="projlattes.js?v=20261104"></script>
+<script src="prod.js?v=20261104"></script>
+<script src="relatorio.js?v=20261104"></script>
 <script>
 "use strict";
 const $view = document.getElementById("view");
@@ -1474,7 +1474,7 @@ function renderEscolha() {
   $view.innerHTML = `
     ${PILOTO ? `<div class="notice" style="margin-bottom:16px">Aplicação piloto. As respostas enviadas por este link ficam marcadas como piloto e não entram nos resultados finais.</div>` : ""}
     <div class="prose">
-      <div class="notice prazo" style="margin-bottom:18px"><b>Prazo final de preenchimento:</b> <span class="data">3 de novembro de 2026</span></div>
+      <div class="notice prazo" style="margin-bottom:18px"><b>Prazo prorrogado:</b> <span class="data">até 8 de novembro de 2026</span></div>
       <h2 style="font-size:26px;">Qual é o seu vínculo com o programa?</h2>
       <p class="muted">Escolha o questionário correspondente. ${LINK_BANCO ? "Funciona no celular e não exige login. Você informa nome e e-mail só para a lista de participação; as respostas são gravadas em outra tabela, sem identificação e sem vínculo com essa lista." : "Estudantes, docentes, pós-doutorandos e egressos respondem sem identificação."}</p>
     </div>
@@ -1912,7 +1912,7 @@ function renderAcompanhar() {
     st.verAbertas = false;
   }
   $view.innerHTML = abasPainel() + topo + `
-    <div class="prose" style="margin-bottom:14px"><h2 style="font-size:24px">Acompanhar respostas</h2><p class="muted">Respostas que já chegaram, sem identificação: gráficos das perguntas fechadas, panorama de cada tema e os comentários das perguntas abertas, organizados por questão. Uso interno da coordenação até o fim da coleta, em 3 de novembro de 2026.${d ? ` Atualizado às ${new Date(d.atualizado).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}.` : ""}</p></div>
+    <div class="prose" style="margin-bottom:14px"><h2 style="font-size:24px">Acompanhar respostas</h2><p class="muted">Respostas que já chegaram, sem identificação: gráficos das perguntas fechadas, panorama de cada tema e os comentários das perguntas abertas, organizados por questão. Uso interno da coordenação até o fim da coleta, prorrogada até 8 de novembro de 2026.${d ? ` Atualizado às ${new Date(d.atualizado).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}.` : ""}</p></div>
     <div class="tiles">${PUBLICOS.map(x => { const k = nDe(x.id); return `<button class="tile" data-acp="${x.id}" aria-pressed="${x.id === p.id}"><span class="dim">Questionário ${x.id}</span><span class="num">${d ? k : "…"}${ESPERADOS_N[x.id] ? `<span class="de">de ${ESPERADOS_N[x.id]}</span>` : ""}</span><span class="lbl">${esc(x.curto)}</span><span class="small ${k >= min ? "" : "muted"}">${!d ? "" : k >= min ? "gráficos liberados" : `a partir de ${min} respostas`}</span></button>`; }).join("")}</div>
     ${corpo}`;
   ligarAbasPainel();
@@ -1932,7 +1932,7 @@ function imprimirRelatorioParcial() {
   st.verAbertas = false; st.abrirTudo = false;
   const rel = document.getElementById("relatorio");
   rel.innerHTML = `<div class="part-rel rp">
-    <div class="pr-head"><img src="logo-ppgau.png" alt="PPGAU"><div><b>Autoavaliação 2026 · Relatório parcial</b><span>PPGAU/UNIVAG · uso interno da coordenação · dados de ${esc(new Date(d.atualizado).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }))} · coleta até 03/11/2026</span></div><img src="logo-univag.png" alt="UNIVAG"></div>
+    <div class="pr-head"><img src="logo-ppgau.png" alt="PPGAU"><div><b>Autoavaliação 2026 · Relatório parcial</b><span>PPGAU/UNIVAG · uso interno da coordenação · dados de ${esc(new Date(d.atualizado).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }))} · coleta prorrogada até 08/11/2026</span></div><img src="logo-univag.png" alt="UNIVAG"></div>
     <p class="rp-aviso"><b>Relatório parcial.</b> A coleta ainda está aberta e os números vão mudar. Respostas sem identificação; questionários com menos de ${min} respostas não aparecem, para proteger o anonimato.</p>
     <table class="pr-res"><thead><tr><th>Questionário</th><th>Respostas</th><th>Convidados</th><th>Participação</th><th>Neste relatório</th></tr></thead><tbody>
       ${PUBLICOS.map(x => `<tr><td>${esc(x.id)} · ${esc(x.nome)}</td><td>${nDe(x.id)}</td><td>${ESPERADOS_N[x.id] || "–"}</td><td>${ESPERADOS_N[x.id] ? Math.round(100 * nDe(x.id) / ESPERADOS_N[x.id]) + "%" : "–"}</td><td>${nDe(x.id) >= min ? "sim" : `não (menos de ${min})`}</td></tr>`).join("")}
@@ -2380,7 +2380,7 @@ function renderResultados() {
   if (st.modoBanco && st.resumoErro && !st.docs.length) {
     corpo = `<div class="card empty-state"><h3>Não foi possível carregar os resultados agora</h3><p>A planilha do programa não respondeu. Tente de novo em instantes.</p><button class="btn" data-recarrega-res>Tentar de novo</button></div>`;
   } else if (st.modoBanco && st.carregado && st.resultadosFechados) {
-    corpo = `<div class="card empty-state"><h3>Coleta em andamento até <span style="color:#c62828">3 de novembro de 2026</span></h3><p>Os resultados serão divulgados ao final da coleta, para não influenciar quem ainda vai responder. Por enquanto, acompanhe acima a participação de cada grupo.</p></div>`;
+    corpo = `<div class="card empty-state"><h3>Coleta em andamento, prazo prorrogado até <span style="color:#c62828">8 de novembro de 2026</span></h3><p>Os resultados serão divulgados ao final da coleta, para não influenciar quem ainda vai responder. Por enquanto, acompanhe acima a participação de cada grupo.</p></div>`;
   } else if (st.modoBanco && st.carregado && dp.length && dp.length < 5) {
     corpo = `<div class="card empty-state"><h3>${dp.length} resposta${dp.length === 1 ? "" : "s"} de ${esc(p.nome.toLowerCase())} recebida${dp.length === 1 ? "" : "s"}</h3><p>Para proteger o anonimato, os gráficos aparecem quando este questionário tiver pelo menos cinco respostas.</p></div>`;
   } else if (!db && !st.modoBanco && st.carregado) {
@@ -2481,7 +2481,7 @@ function renderSobre() {
           <h2>Sobre a coleta</h2>
           <p>Esta plataforma reúne os questionários da Autoavaliação 2026 do programa. As respostas orientam ações de melhoria, o planejamento estratégico e a análise das condições para um doutorado em Arquitetura e Urbanismo.</p>
         </div>
-        <div class="so-prazo"><span>Prazo final</span><b>3 de novembro de 2026</b></div>
+        <div class="so-prazo"><span>Prazo prorrogado</span><b>8 de novembro de 2026</b></div>
       </section>
 
       <h3 class="so-h">Como funciona</h3>
@@ -2644,7 +2644,7 @@ function imprimirParticipacao(grupos, outros) {
   const rel = document.getElementById("relatorio");
   rel.innerHTML = `
     <div class="part-rel">
-      <div class="pr-head"><img src="logo-ppgau.png" alt="PPGAU"><div><b>Autoavaliação 2026 · Lista de participação</b><span>PPGAU/UNIVAG · uso interno da coordenação · gerado em ${esc(hojeBR())} · prazo final 03/11/2026</span></div><img src="logo-univag.png" alt="UNIVAG"></div>
+      <div class="pr-head"><img src="logo-ppgau.png" alt="PPGAU"><div><b>Autoavaliação 2026 · Lista de participação</b><span>PPGAU/UNIVAG · uso interno da coordenação · gerado em ${esc(hojeBR())} · prazo prorrogado até 08/11/2026</span></div><img src="logo-univag.png" alt="UNIVAG"></div>
       <table class="pr-res"><thead><tr><th>Categoria</th><th>Responderam</th><th>Pendentes</th><th>Total</th><th>Participação</th></tr></thead><tbody>
         ${grupos.map(g => `<tr><td>${esc(g.t)}</td><td>${g.ok}</td><td>${g.l.length - g.ok}</td><td>${g.l.length}</td><td>${g.l.length ? Math.round(100 * g.ok / g.l.length) : 0}%</td></tr>`).join("")}
         <tr class="pr-tot"><td>Total</td><td>${ok}</td><td>${tot - ok}</td><td>${tot}</td><td>${tot ? Math.round(100 * ok / tot) : 0}%</td></tr>
